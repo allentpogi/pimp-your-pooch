@@ -10,6 +10,9 @@ import {
 } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import Image from "../assets/img/hero-image.png";
+import Image2 from "../assets/img/dog-grooming.jpg";
+import Image3 from "../assets/img/dog-boarding.jpg";
+import Image4 from "../assets/img/dog-day-care.jpg";
 import { lightBlue } from "@mui/material/colors";
 
 const useStyles = makeStyles()(() => ({
@@ -24,6 +27,22 @@ const useStyles = makeStyles()(() => ({
     width: "100%",
     minHeight: "60vh",
     // minWidth: "100vh",
+  },
+  cardGrid: {
+    padding: "20px 0",
+  },
+  card: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+  },
+  cardMedia: {
+    paddingTop: "56.25%",
+    Height: "200px",
+    width: "100%",
+  },
+  cardContent: {
+    flexGrow: 1,
   },
 }));
 
@@ -59,15 +78,43 @@ const Home = () => {
             <Card className={classes.card}>
               <CardMedia
                 className={classes.cardMedia}
-                image=""
-                title="image title"
+                image={Image2}
+                title="Dog grooming"
+                alt="Dog grooming"
               />
               <CardContent className={classes.cardContent}>
                 <Typography variant="h5" gutterBottom>
-                  Grooming
+                  Grooming services
                 </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item>
+            <Card className={classes.card}>
+              <CardMedia
+                className={classes.cardMedia}
+                image={Image3}
+                title="Dog boarding"
+                alt="Dog boarding"
+              />
+              <CardContent className={classes.cardContent}>
                 <Typography variant="h5" gutterBottom>
-                  Grooming services blah blah
+                  Dog boarding
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item>
+            <Card className={classes.card}>
+              <CardMedia
+                className={classes.cardMedia}
+                image={Image4}
+                title="Day care"
+                alt="Day care"
+              />
+              <CardContent className={classes.cardContent}>
+                <Typography variant="h5" gutterBottom>
+                  Day care
                 </Typography>
               </CardContent>
             </Card>
