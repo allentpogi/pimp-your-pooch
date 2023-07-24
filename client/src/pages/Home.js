@@ -38,8 +38,8 @@ const useStyles = makeStyles()(() => ({
   },
   cardMedia: {
     paddingTop: "56.25%",
-    Height: "200px",
-    width: "100%",
+    // Height: "200px",
+    // width: "100%",
   },
   cardContent: {
     flexGrow: 1,
@@ -74,7 +74,7 @@ const Home = () => {
       </div>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
-          <Grid item>
+          <Grid item xs={12} sm={6} md={4}>
             <Card className={classes.card}>
               <CardMedia
                 className={classes.cardMedia}
@@ -89,7 +89,7 @@ const Home = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item>
+          <Grid item xs={12} sm={6} md={4}>
             <Card className={classes.card}>
               <CardMedia
                 className={classes.cardMedia}
@@ -104,7 +104,7 @@ const Home = () => {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item>
+          <Grid item xs={12} sm={6} md={4}>
             <Card className={classes.card}>
               <CardMedia
                 className={classes.cardMedia}
