@@ -1,44 +1,80 @@
-import { Link } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import { QUERY_MATCHUPS } from '../utils/queries';
+import React from "react";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Container,
+  CssBaseline,
+  Grid,
+  Typography,
+} from "@mui/material";
+import { makeStyles } from "tss-react/mui";
+import Image from "../assets/img/hero-image.png";
+import { lightBlue } from "@mui/material/colors";
+
+const useStyles = makeStyles()(() => ({
+  container: {
+    backgroundImage: `url(${Image})`,
+    backgroundColor: "lightBlue",
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    padding: "80px 80px",
+    height: "100%",
+    width: "100%",
+    minHeight: "60vh",
+    // minWidth: "100vh",
+  },
+}));
 
 const Home = () => {
-  const { loading, data } = useQuery(QUERY_MATCHUPS, {
-    fetchPolicy: "no-cache"
-  });
-
-  const matchupList = data?.matchups || [];
-
+  const { classes } = useStyles();
   return (
-    <div className="card bg-white card-rounded w-50">
-      <div className="card-header bg-dark text-center">
-        <h1>Welcome to Tech Matchup!</h1>
+    <>
+      <CssBaseline />
+      <div className={classes.container}>
+        <Container maxWidth="sm">
+          <Typography
+            variant="h2"
+            align="center"
+            color="textPrimary"
+            gutterBottom
+          >
+            Pimp my pooch
+          </Typography>
+          <Typography
+            variant="h5"
+            align="center"
+            color="textSecondary"
+            paragraph
+          >
+            The easiest way to book your dog services.
+          </Typography>
+          {/* <img src={Image} alt="dogs" /> */}
+        </Container>
       </div>
-      <div className="card-body m-5">
-        <h2>Here is a list of matchups you can vote on:</h2>
-        {loading ? (
-          <div>Loading...</div>
-        ) : (
-          <ul className="square">
-            {matchupList.map((matchup) => {
-              return (
-                <li key={matchup._id}>
-                  <Link to={{ pathname: `/matchup/${matchup._id}` }}>
-                    {matchup.tech1} vs. {matchup.tech2}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </div>
-      <div className="card-footer text-center m-3">
-        <h2>Ready to create a new matchup?</h2>
-        <Link to="/matchup">
-          <button className="btn btn-lg btn-danger">Create Matchup!</button>
-        </Link>
-      </div>
-    </div>
+      <Container className={classes.cardGrid} maxWidth="md">
+        <Grid container spacing={4}>
+          <Grid item>
+            <Card className={classes.card}>
+              <CardMedia
+                className={classes.cardMedia}
+                image=""
+                title="image title"
+              />
+              <CardContent className={classes.cardContent}>
+                <Typography variant="h5" gutterBottom>
+                  Grooming
+                </Typography>
+                <Typography variant="h5" gutterBottom>
+                  Grooming services blah blah
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
+    </>
   );
 };
 
