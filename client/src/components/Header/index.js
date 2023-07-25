@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+
+import Auth from "../../utils/auth";
+
 // import { Link } from "react-router-dom";
 import {
   AppBar,
@@ -10,7 +13,6 @@ import {
 import { Pets } from "@mui/icons-material";
 import { makeStyles } from "tss-react/mui";
 import Login from "../../pages/Login";
-import Signup from "../../pages/Signup";
 
 const useStyles = makeStyles()(() => ({
   navTitle: {
@@ -23,8 +25,12 @@ const useStyles = makeStyles()(() => ({
 }));
 
 const Header = () => {
+  const logout = (event) => {
+    event.preventDefault();
+    Auth.logout();
+  };
+
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isSignupOpen, setIsSignupOpen] = useState(false);
 
   const handleLoginButtonClick = () => {
     setIsLoginOpen(true);
@@ -32,14 +38,6 @@ const Header = () => {
 
   const handleLoginDrawerClose = () => {
     setIsLoginOpen(false);
-  };
-
-  const handleSignupButtonClick = () => {
-    setIsSignupOpen(true);
-  };
-
-  const handleSignupDrawerClose = () => {
-    setIsSignupOpen(false);
   };
 
   const { classes } = useStyles();
@@ -53,24 +51,36 @@ const Header = () => {
             <Typography variant="h6">Pimp my pooch</Typography>
           </div>
           <div className={classes.navTitle}>
-            <Button
-              href="#"
-              onClick={handleLoginButtonClick}
-              variant="contained"
-              sx={{ my: 1, mx: 1.5 }}
-            >
-              Login
-            </Button>
+            {Auth.loggedIn() ? (
+              <>
+                <Button
+                  href="#"
+                  // onClick={handleLoginButtonClick}
+                  sx={{ my: 1, mx: 1.5 }}
+                  color="inherit"
+                >
+                  My pack
+                </Button>
+                <Button
+                  href="#"
+                  onClick={logout}
+                  sx={{ my: 1, mx: 1.5 }}
+                  color="inherit"
+                >
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <Button
+                href="#"
+                onClick={handleLoginButtonClick}
+                sx={{ my: 1, mx: 1.5 }}
+                color="inherit"
+              >
+                Login
+              </Button>
+            )}
             <Login isOpen={isLoginOpen} onClose={handleLoginDrawerClose} />
-            <Button
-              href="#"
-              onClick={handleSignupButtonClick}
-              variant="contained"
-              sx={{ my: 1, mx: 1.5 }}
-            >
-              Sign up
-            </Button>
-            <Signup isOpen={isSignupOpen} onClose={handleSignupDrawerClose} />
           </div>
         </Toolbar>
       </AppBar>

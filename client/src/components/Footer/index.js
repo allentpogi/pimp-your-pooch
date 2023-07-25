@@ -3,7 +3,10 @@ import { CssBaseline, Link, Typography } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 
 const useStyles = makeStyles()(() => ({
-  footer: {},
+  footer: {
+    borderTop: "groove thin #4db6ac",
+    // borderStyle: "solid",
+  },
 }));
 
 const Footer = () => {

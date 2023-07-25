@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import {
+  Box,
+  Button,
   Card,
   CardContent,
   CardMedia,
@@ -13,19 +15,19 @@ import Image from "../assets/img/hero-image.png";
 import Image2 from "../assets/img/dog-grooming.jpg";
 import Image3 from "../assets/img/dog-boarding.jpg";
 import Image4 from "../assets/img/dog-day-care.jpg";
-import { lightBlue } from "@mui/material/colors";
+import Signup from "./Signup";
 
 const useStyles = makeStyles()(() => ({
   container: {
     backgroundImage: `url(${Image})`,
-    backgroundColor: "lightBlue",
+    backgroundColor: "#b3e5fc",
     backgroundPosition: "center",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
-    padding: "80px 80px",
+    padding: "4rem 3rem",
     height: "100%",
     width: "100%",
-    minHeight: "60vh",
+    minHeight: "55vh",
     // minWidth: "100vh",
   },
   cardGrid: {
@@ -47,16 +49,27 @@ const useStyles = makeStyles()(() => ({
 }));
 
 const Home = () => {
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
+
+  const handleSignupButtonClick = () => {
+    setIsSignupOpen(true);
+  };
+
+  const handleSignupDrawerClose = () => {
+    setIsSignupOpen(false);
+  };
+
   const { classes } = useStyles();
   return (
     <>
       <CssBaseline />
-      <div className={classes.container}>
-        <Container maxWidth="sm">
+      <Box className={classes.container}>
+        <Container>
           <Typography
             variant="h2"
             align="center"
             color="textPrimary"
+            // sx={{ bgcolor: "#fafafa" }}
             gutterBottom
           >
             Pimp my pooch
@@ -66,12 +79,26 @@ const Home = () => {
             align="center"
             color="textSecondary"
             paragraph
+            // sx={{ bgcolor: "#fafafa" }}
           >
-            The easiest way to book your dog services.
+            Give your fur babies the royal treatment they deserve at our
+            dog-gone fabulous grooming and boarding service – where wagging
+            tails and pampered paws are our specialty!
           </Typography>
-          {/* <img src={Image} alt="dogs" /> */}
+          <Box textAlign="center">
+            <Button
+              align="center"
+              variant="contained"
+              color="primary"
+              size="medium"
+              onClick={handleSignupButtonClick}
+            >
+              Join the pack
+            </Button>
+            <Signup isOpen={isSignupOpen} onClose={handleSignupDrawerClose} />
+          </Box>
         </Container>
-      </div>
+      </Box>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6} md={4}>
