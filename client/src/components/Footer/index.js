@@ -1,34 +1,30 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React from "react";
+import { CssBaseline, Link, Typography } from "@mui/material";
+import { makeStyles } from "tss-react/mui";
+
+const useStyles = makeStyles()(() => ({
+  footer: {},
+}));
 
 const Footer = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { classes } = useStyles();
   return (
-    <footer className="w-100 mt-auto bg-secondary p-4">
-      <div className="container text-center mb-5">
-        {location.pathname !== '/' && (
-          <button
-            className="btn btn-dark mb-3"
-            onClick={() => navigate(-1)}
-          >
-            &larr; Go Back
-          </button>
-        )}
-        <h4>
-          Made with{' '}
-          <span
-            className="emoji"
-            role="img"
-            aria-label="heart"
-            aria-hidden="false"
-          >
-            ❤️
-          </span>{' '}
-          by the Tech Thoughts team.
-        </h4>
-      </div>
-    </footer>
+    <>
+      <CssBaseline />
+      <footer className={classes.footer}>
+        <Typography variant="h6" align="center" gutterBottom>
+          Pimp My Pooch Ltd Pty
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          align="center"
+          color="text.secondary"
+          component="p"
+        >
+          &copy; Pimp-my-pooch 2023
+        </Typography>
+      </footer>
+    </>
   );
 };
 
