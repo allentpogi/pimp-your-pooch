@@ -63,7 +63,8 @@ const Signup = ({ isOpen, onClose }) => {
         <Typography>Sign up</Typography>
         {data ? (
           <p>
-            Success! You may now head <Link to="/">back to the homepage.</Link>
+            Success! You may now head{" "}
+            <Link to="/me">back to the homepage.</Link>
           </p>
         ) : (
           <FormControl>

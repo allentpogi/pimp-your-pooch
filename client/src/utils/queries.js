@@ -28,3 +28,20 @@ export const QUERY_ME = gql`
     }
   }
 `;
+
+export const QUERY_PETS = gql`
+  query me {
+    me {
+      _id
+      username
+      fullname
+      email
+      pets {
+        _id
+        name
+        breed
+        birthday
+      }
+    }
+  }
+`;

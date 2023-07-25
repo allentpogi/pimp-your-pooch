@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Navigate, redirect, useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 const Login = ({ isOpen, onClose }) => {
   const [formState, setFormState] = useState({ username: "", password: "" });
   const [login, { error, data }] = useMutation(LOGIN_USER);
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -43,15 +44,11 @@ const Login = ({ isOpen, onClose }) => {
       });
 
       Auth.login(data.login.token);
+      navigate("/profile");
+      return redirect("/profile");
     } catch (e) {
       console.error(e);
     }
-
-    // clear form values
-    setFormState({
-      username: "",
-      password: "",
-    });
   };
 
   const classes = useStyles();
@@ -60,9 +57,7 @@ const Login = ({ isOpen, onClose }) => {
       <Box className={classes.drawerContent}>
         <Typography>Login</Typography>
         {data ? (
-          <p>
-            Success! You may now head <Link to="/">back to the homepage.</Link>
-          </p>
+          <Navigate to="/profile" />
         ) : (
           <FormControl>
             <TextField

@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Header from "./components/Header";
-import Login from "./pages/Login";
+import MyPack from "./pages/Mypack";
 import Footer from "./components/Footer";
 
 // Construct our main GraphQL API endpoint
@@ -52,7 +52,7 @@ export default function App() {
           <main>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
+              <Route path="/profile" element={<MyPack />} />
             </Routes>
           </main>
           <div>
