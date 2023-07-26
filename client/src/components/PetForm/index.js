@@ -60,7 +60,14 @@ const PetForm = () => {
         },
       });
 
-      setFormState("");
+      setFormState({
+        name: "",
+        breed: "",
+        birthday: "2001-01-01",
+        colour: "",
+        allergies: "",
+        otherinfo: "",
+      });
     } catch (err) {
       console.error(err);
     }

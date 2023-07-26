@@ -1,43 +1,77 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useState } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Container,
+  CssBaseline,
+  Grid,
+  Typography,
+} from "@mui/material";
+import moment from "moment";
 
-const PetList = ({ pets, title, showTitle = true, showUsername = true }) => {
-  //   if (!pets.length) {
-  //     return <h3>No pets yet.</h3>;
-  //   }
+const PetList = ({ pets }) => {
+  if (!pets.length) {
+    return <h3>No pets yet.</h3>;
+  }
+  console.log(pets);
 
-  console.log(showTitle);
+  // const petsFormatted = pets.map((pet) => (
+
+  //   {
+
+  //   name: pet.name,
+  //   breed: pet.breed,
+  //   birthday: pet.birthday,
+  //   colour: pet.colour,
+  //   allergies: pet.allergies,
+  //   otherinfo: pet.otherinfo,
+
+  // }
+  // ))
+
+  // const{ pets.birtday }
+  // const formattedDate = date.toLocaleDateString('en-GB');
 
   return (
-    <div>
-      {showTitle && <h3>{title}</h3>}
-      {pets &&
-        pets.map((pet) => (
-          <div key={pet._id} className="card mb-3">
-            <h4 className="card-header bg-primary text-light p-2 m-0">
-              {showUsername ? (
-                <Link className="text-light" to={`/pets/${pet.name}`}>
-                  {pet.name} {pet.breed} <br />
-                  <span style={{ fontSize: "1rem" }}>had this on</span>
-                </Link>
-              ) : (
-                <>
-                  <span style={{ fontSize: "1rem" }}>You had this on</span>
-                </>
-              )}
-            </h4>
-            <div className="card-body bg-light p-2">
-              <p>{pet.name}</p>
-            </div>
-            <Link
-              className="btn btn-primary btn-block btn-squared"
-              to={`/pets/${pet._id}`}
-            >
-              Join the discussion on this
-            </Link>
-          </div>
-        ))}
-    </div>
+    <>
+      <CssBaseline />
+      <Box>
+        <Container>
+          <Grid container spacing={4}>
+            {pets.map((pet) => (
+              <Grid item key={pet._id}>
+                <Card>
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      {pet.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {pet.breed}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {moment(pet.birthday).format("DD/MM/YYYY")}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {pet.colour}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {pet.allergies}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {pet.otherinfo}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+    </>
   );
 };
 

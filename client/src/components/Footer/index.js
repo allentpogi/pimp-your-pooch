@@ -6,6 +6,14 @@ const useStyles = makeStyles()(() => ({
   footer: {
     borderTop: "groove thin #4db6ac",
     // borderStyle: "solid",
+    position: "fixed",
+    bottom: 0,
+    width: "100%",
+    height: "100px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    alignItems: "center",
   },
 }));
 

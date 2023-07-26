@@ -55,12 +55,7 @@ const MyPack = () => {
         </h2>
 
         <div className="col-12 col-md-10 mb-5">
-          <PetList
-            pets={user.pets}
-            title={`${user.username}'s pets...`}
-            showTitle={false}
-            showUsername={false}
-          />
+          <PetList pets={user.pets} />
         </div>
         {!userParam && (
           <div

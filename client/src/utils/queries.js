@@ -26,6 +26,10 @@ export const QUERY_ME = gql`
         _id
         name
         breed
+        birthday
+        colour
+        allergies
+        otherinfo
       }
     }
   }
@@ -35,18 +39,12 @@ export const QUERY_PETS = gql`
   query getPets {
     pets {
       _id
-      username
-      fullname
-      email
-      pets {
-        _id
-        name
-        breed
-        birthday
-        colour
-        allergies
-        otherinfo
-      }
+      name
+      breed
+      birthday
+      colour
+      allergies
+      otherinfo
     }
   }
 `;
