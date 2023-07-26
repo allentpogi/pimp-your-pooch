@@ -1,6 +1,18 @@
 import React from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Container,
+  CssBaseline,
+  Grid,
+  Typography,
+} from "@mui/material";
+import { makeStyles } from "tss-react/mui";
 
 import PetForm from "../components/PetForm";
 import PetList from "../components/PetList";
@@ -44,8 +56,8 @@ const MyPack = () => {
 
         <div className="col-12 col-md-10 mb-5">
           <PetList
-            thoughts={user.thoughts}
-            title={`${user.username}'s thoughts...`}
+            pets={user.pets}
+            title={`${user.username}'s pets...`}
             showTitle={false}
             showUsername={false}
           />

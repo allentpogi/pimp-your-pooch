@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Navigate, redirect, useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 
@@ -23,9 +23,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = ({ isOpen, onClose }) => {
   const [formState, setFormState] = useState({ username: "", password: "" });
+  // const [loggedIn, setLoggedIn] = useState(false);
   const [login, { error, data }] = useMutation(LOGIN_USER);
-  const navigate = useNavigate();
-
   const handleChange = (event) => {
     const { name, value } = event.target;
 
@@ -39,13 +38,15 @@ const Login = ({ isOpen, onClose }) => {
     event.preventDefault();
     console.log(formState);
     try {
+      console.log("start login");
       const { data } = await login({
         variables: { ...formState },
       });
 
+      console.log("login success");
       Auth.login(data.login.token);
-      navigate("/profile");
-      return redirect("/profile");
+      console.log("token assigned");
+      return redirect("/test");
     } catch (e) {
       console.error(e);
     }
@@ -53,12 +54,10 @@ const Login = ({ isOpen, onClose }) => {
 
   const classes = useStyles();
   return (
-    <Drawer anchor="right" open={isOpen} onClose={onClose}>
-      <Box className={classes.drawerContent}>
-        <Typography>Login</Typography>
-        {data ? (
-          <Navigate to="/profile" />
-        ) : (
+    <div>
+      <Drawer anchor="right" open={isOpen} onClose={onClose}>
+        <Box className={classes.drawerContent}>
+          <Typography>Login</Typography>
           <FormControl>
             <TextField
               label="Username"
@@ -87,11 +86,10 @@ const Login = ({ isOpen, onClose }) => {
               Submit
             </Button>
           </FormControl>
-        )}
-
-        {error && <div>{error.message}</div>}
-      </Box>
-    </Drawer>
+          {error && <div>{error.message}</div>}
+        </Box>
+      </Drawer>
+    </div>
   );
 };
 

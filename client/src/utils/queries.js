@@ -5,6 +5,7 @@ export const QUERY_USER = gql`
     user(username: $username) {
       _id
       username
+      fullname
       email
       pets {
         _id
@@ -19,6 +20,7 @@ export const QUERY_ME = gql`
     me {
       _id
       username
+      fullname
       email
       pets {
         _id
@@ -30,8 +32,8 @@ export const QUERY_ME = gql`
 `;
 
 export const QUERY_PETS = gql`
-  query me {
-    me {
+  query getPets {
+    pets {
       _id
       username
       fullname
@@ -41,6 +43,9 @@ export const QUERY_PETS = gql`
         name
         breed
         birthday
+        colour
+        allergies
+        otherinfo
       }
     }
   }

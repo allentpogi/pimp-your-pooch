@@ -9,6 +9,7 @@ import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
+import Test from "./pages/Test";
 import Header from "./components/Header";
 import MyPack from "./pages/Mypack";
 import Footer from "./components/Footer";
@@ -52,7 +53,8 @@ export default function App() {
           <main>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/profile" element={<MyPack />} />
+              <Route path="/me" element={<MyPack />} />
+              <Route path="/test" element={<Test />} />
             </Routes>
           </main>
           <div>

@@ -6,6 +6,8 @@ const PetList = ({ pets, title, showTitle = true, showUsername = true }) => {
   //     return <h3>No pets yet.</h3>;
   //   }
 
+  console.log(showTitle);
+
   return (
     <div>
       {showTitle && <h3>{title}</h3>}

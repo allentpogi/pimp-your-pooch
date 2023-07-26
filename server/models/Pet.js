@@ -16,6 +16,18 @@ const petSchema = new Schema({
     type: Date,
     required: false,
   },
+  colour: {
+    type: String,
+    required: false,
+  },
+  allergies: {
+    type: String,
+    required: false,
+  },
+  otherinfo: {
+    type: String,
+    required: false,
+  },
   // appointments: [{}],
 });
 

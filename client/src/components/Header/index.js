@@ -54,7 +54,7 @@ const Header = () => {
             {Auth.loggedIn() ? (
               <>
                 <Button
-                  href="#"
+                  href="/me"
                   // onClick={handleLoginButtonClick}
                   sx={{ my: 1, mx: 1.5 }}
                   color="inherit"
@@ -62,7 +62,7 @@ const Header = () => {
                   My pack
                 </Button>
                 <Button
-                  href="#"
+                  href="/"
                   onClick={logout}
                   sx={{ my: 1, mx: 1.5 }}
                   color="inherit"

@@ -45,12 +45,19 @@ const resolvers = {
 
       return { token, user };
     },
-    addPet: async (parent, { name, breed, birthday }, context) => {
+    addPet: async (
+      parent,
+      { name, breed, birthday, colour, allergies, otherinfo },
+      context
+    ) => {
       if (context.user) {
         const pet = await Pet.create({
           name,
           breed,
           birthday,
+          colour,
+          allergies,
+          otherinfo,
         });
 
         await User.findOneAndUpdate(
