@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useState } from "react-router-dom";
+import PetForm from "../PetForm";
 import {
   Box,
   Button,
@@ -19,55 +20,54 @@ const PetList = ({ pets }) => {
   }
   console.log(pets);
 
-  // const petsFormatted = pets.map((pet) => (
-
-  //   {
-
-  //   name: pet.name,
-  //   breed: pet.breed,
-  //   birthday: pet.birthday,
-  //   colour: pet.colour,
-  //   allergies: pet.allergies,
-  //   otherinfo: pet.otherinfo,
-
-  // }
-  // ))
-
-  // const{ pets.birtday }
-  // const formattedDate = date.toLocaleDateString('en-GB');
-
   return (
     <>
       <CssBaseline />
       <Box>
         <Container>
           <Grid container spacing={4}>
-            {pets.map((pet) => (
-              <Grid item key={pet._id}>
-                <Card>
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {pet.name}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {pet.breed}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {moment(pet.birthday).format("DD/MM/YYYY")}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {pet.colour}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {pet.allergies}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {pet.otherinfo}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
+            {pets.map((pet) => {
+              const { name, breed, birthday, colour, allergies, otherinfo } =
+                pet;
+              const unformattedBirthDay = moment(
+                birthday,
+                "YYYY-MM-DD HH:mm:ss"
+              );
+              console.log(unformattedBirthDay);
+              console.log(birthday);
+              const petBirthday = unformattedBirthDay.format("DD/MM/YYYY");
+              return (
+                <Grid item key={pet._id} xs={12} sm={6} md={4}>
+                  <Card sx={{ height: "100%" }}>
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {name}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {breed}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {petBirthday}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {colour}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {allergies}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {otherinfo}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              );
+            })}
+            <Grid item xs={12} sm={6} md={4}>
+              <Card>
+                <PetForm />
+              </Card>
+            </Grid>
           </Grid>
         </Container>
       </Box>

@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 
-import PetForm from "../components/PetForm";
+// import PetForm from "../components/PetForm";
 import PetList from "../components/PetList";
 
 import { QUERY_USER, QUERY_ME } from "../utils/queries";
@@ -48,25 +48,29 @@ const MyPack = () => {
   }
 
   return (
-    <div>
-      <div className="flex-row justify-center mb-3">
-        <h2 className="col-12 col-md-10 bg-dark text-light p-3 mb-5">
-          Viewing your pack.
-        </h2>
-
-        <div className="col-12 col-md-10 mb-5">
+    <Container>
+      <CssBaseline />
+      <Box>
+        <Typography
+          variant="h3"
+          sx={{
+            marginTop: "1.5rem",
+          }}
+        >
+          Members of your pack:
+        </Typography>
+        <Box
+          sx={{
+            backgroundColor: "#E8F5E9",
+            border: "1px solid grey",
+            marginTop: "1.5rem",
+            padding: "2rem",
+          }}
+        >
           <PetList pets={user.pets} />
-        </div>
-        {!userParam && (
-          <div
-            className="col-12 col-md-10 mb-3 p-3"
-            style={{ border: "1px dotted #1a1a1a" }}
-          >
-            <PetForm />
-          </div>
-        )}
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 

@@ -59,15 +59,7 @@ const PetForm = () => {
           ...formState,
         },
       });
-
-      setFormState({
-        name: "",
-        breed: "",
-        birthday: "2001-01-01",
-        colour: "",
-        allergies: "",
-        otherinfo: "",
-      });
+      clearValue();
     } catch (err) {
       console.error(err);
     }
@@ -82,6 +74,17 @@ const PetForm = () => {
     setFormState({
       ...formState,
       [name]: value,
+    });
+  };
+
+  const clearValue = (event) => {
+    setFormState({
+      name: "",
+      breed: "",
+      birthday: "2001-01-01",
+      colour: "",
+      allergies: "",
+      otherinfo: "",
     });
   };
 
@@ -149,13 +152,21 @@ const PetForm = () => {
               onChange={handleChange}
             />
             <Box>
-              <Button variant="contained" color="secondary">
-                Cancel
+              <Button
+                variant="outline"
+                color="secondary"
+                size="small"
+                onClick={clearValue}
+                align="center"
+              >
+                Clear
               </Button>
               <Button
-                variant="contained"
+                variant="outline"
                 color="primary"
                 onClick={handleFormSubmit}
+                size="small"
+                align="center"
               >
                 Add pet
               </Button>
