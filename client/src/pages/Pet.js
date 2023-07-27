@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_SINGLE_PET } from "../utils/queries";
@@ -17,16 +17,32 @@ import {
 
 const Pet = () => {
   const { petId } = useParams();
-
-  console.log("petid", petId);
-  console.log("params", useParams());
+  const [imageUrl, setImageUrl] = useState("");
 
   const { loading, data } = useQuery(QUERY_SINGLE_PET, {
     variables: { petId: petId },
   });
 
   const pet = data?.pet || {};
-  console.log("pet", pet);
+
+  const petBreed = pet.breed;
+
+  const fetchImage = async () => {
+    const response = await fetch(
+      `https://dog.ceo/api/breed/${petBreed}/images/random`
+    );
+    const data = await response.json();
+    const imageUrl = data.message;
+    setImageUrl(imageUrl);
+  };
+
+  useEffect(() => {
+    if (loading) {
+      return; // Do not proceed with the fetchImage() if data is still loading
+    }
+
+    fetchImage();
+  }, [loading, petBreed]); // Adding loading and petBreed as dependencies
 
   if (loading) {
     return <div>Loading...</div>;
@@ -58,6 +74,17 @@ const Pet = () => {
             <Typography>Colour: {pet.colour}</Typography>
             <Typography>Allergies: {pet.allergies}</Typography>
             <Typography>Other information: {pet.otherinfo}</Typography>
+            <Box>
+              <img
+                src={imageUrl}
+                alt="Dog"
+                style={{
+                  width: "300px",
+                  height: "auto",
+                  display: imageUrl ? "block" : "none",
+                }}
+              />
+            </Box>
           </Box>
         </Box>
       </Container>

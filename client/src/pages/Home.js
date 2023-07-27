@@ -48,6 +48,12 @@ const useStyles = makeStyles()(() => ({
   },
 }));
 
+const cardData = [
+  { image: Image2, title: "Grooming services", alt: "Dog grooming" },
+  { image: Image3, title: "Dog boarding", alt: "Dog boarding" },
+  { image: Image4, title: "Day care", alt: "Day care" },
+];
+
 const Home = () => {
   const [isSignupOpen, setIsSignupOpen] = useState(false);
 
@@ -69,7 +75,6 @@ const Home = () => {
             variant="h2"
             align="center"
             color="textPrimary"
-            // sx={{ bgcolor: "#fafafa" }}
             gutterBottom
           >
             Pimp my pooch
@@ -79,7 +84,6 @@ const Home = () => {
             align="center"
             color="textSecondary"
             paragraph
-            // sx={{ bgcolor: "#fafafa" }}
           >
             Give your fur babies the royal treatment they deserve at our
             dog-gone fabulous grooming and boarding service – where wagging
@@ -101,51 +105,23 @@ const Home = () => {
       </Box>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
-          <Grid item xs={12} sm={6} md={4}>
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.cardMedia}
-                image={Image2}
-                title="Dog grooming"
-                alt="Dog grooming"
-              />
-              <CardContent className={classes.cardContent}>
-                <Typography variant="h5" gutterBottom>
-                  Grooming services
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.cardMedia}
-                image={Image3}
-                title="Dog boarding"
-                alt="Dog boarding"
-              />
-              <CardContent className={classes.cardContent}>
-                <Typography variant="h5" gutterBottom>
-                  Dog boarding
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <Card className={classes.card}>
-              <CardMedia
-                className={classes.cardMedia}
-                image={Image4}
-                title="Day care"
-                alt="Day care"
-              />
-              <CardContent className={classes.cardContent}>
-                <Typography variant="h5" gutterBottom>
-                  Day care
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+          {cardData.map((card, index) => (
+            <Grid item key={index} xs={12} sm={6} md={4}>
+              <Card className={classes.card}>
+                <CardMedia
+                  className={classes.cardMedia}
+                  image={card.image}
+                  title={card.title}
+                  alt={card.alt}
+                />
+                <CardContent className={classes.cardContent}>
+                  <Typography variant="h5" gutterBottom>
+                    {card.title}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
       </Container>
     </>

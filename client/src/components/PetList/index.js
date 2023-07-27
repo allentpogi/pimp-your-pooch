@@ -29,13 +29,12 @@ const PetList = ({ pets }) => {
             {pets.map((pet) => {
               const { name, breed, birthday, colour, allergies, otherinfo } =
                 pet;
-              const unformattedBirthDay = moment(
-                birthday,
-                "YYYY-MM-DD HH:mm:ss"
-              );
-              console.log(unformattedBirthDay);
-              console.log(birthday);
-              const petBirthday = unformattedBirthDay.format("DD/MM/YYYY");
+              const dateObject = new Date(birthday * 1000);
+              const day = String(dateObject.getDate()).padStart(2, "0");
+              const month = String(dateObject.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+              const year = dateObject.getFullYear();
+              const formattedBirthday = `${day}/${month}/${year}`;
+
               return (
                 <Grid item key={pet._id} xs={12} sm={6} md={4}>
                   <Card sx={{ height: "100%" }}>
@@ -52,7 +51,7 @@ const PetList = ({ pets }) => {
                         {breed}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        {petBirthday}
+                        {formattedBirthday}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         {colour}

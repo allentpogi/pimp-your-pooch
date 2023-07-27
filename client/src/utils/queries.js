@@ -10,6 +10,11 @@ export const QUERY_USER = gql`
       pets {
         _id
         name
+        breed
+        birthday
+        colour
+        allergies
+        otherinfo
       }
     }
   }

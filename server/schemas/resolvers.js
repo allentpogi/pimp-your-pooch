@@ -9,7 +9,7 @@ const resolvers = {
     },
     pets: async (parent, { username }) => {
       const params = username ? { username } : {};
-      return Pet.find(params).sort({ name: asc });
+      return Pet.find(params).sort({ name: -1 });
     },
     pet: async (parent, { petId }) => {
       return Pet.findOne({ _id: petId });

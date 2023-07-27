@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import {
   Box,
@@ -7,6 +6,9 @@ import {
   Container,
   CssBaseline,
   FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -14,8 +16,6 @@ import { makeStyles } from "tss-react/mui";
 
 import { ADD_PET } from "../../utils/mutations";
 import { QUERY_PETS, QUERY_ME } from "../../utils/queries";
-
-import Auth from "../../utils/auth";
 
 const PetForm = () => {
   const [formState, setFormState] = useState({
@@ -31,7 +31,6 @@ const PetForm = () => {
     update(cache, { data: { addPet } }) {
       try {
         const { pets } = cache.readQuery({ query: QUERY_PETS });
-        console.log(pets);
 
         cache.writeQuery({
           query: QUERY_PETS,
@@ -67,10 +66,6 @@ const PetForm = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
-    // console.log(name);
-    // console.log(value);
-
     setFormState({
       ...formState,
       [name]: value,
@@ -88,98 +83,96 @@ const PetForm = () => {
     });
   };
 
+  const [breedsList, setBreedsList] = useState([]);
+
+  const fetchAllBreeds = async () => {
+    try {
+      const response = await fetch("https://dog.ceo/api/breeds/list/all");
+      if (response.ok) {
+        const data = await response.json();
+        const breeds = Object.keys(data.message); // Extract the breed names from the response
+        setBreedsList(breeds);
+      } else {
+        alert("Sorry, can not display the data");
+      }
+    } catch (e) {
+      alert("Sorry, can not display the data");
+    }
+  };
+
+  useEffect(() => {
+    fetchAllBreeds();
+  }, []);
+
+  const fields = [
+    { name: "name", label: "Name", required: true },
+    { name: "birthday", label: "Birthday", type: "date" },
+    { name: "colour", label: "Colour" },
+    { name: "allergies", label: "Allergies" },
+    { name: "otherinfo", label: "Other information", multiline: true, rows: 2 },
+  ];
+
   return (
-    <Container>
-      <CssBaseline />
-      {Auth.loggedIn() ? (
-        <>
-          <Typography variant="h6" gutterBottom>
-            Add a pet
-          </Typography>
-          <FormControl>
+    <>
+      <Container>
+        <CssBaseline />
+        <Typography variant="h6" gutterBottom>
+          Add a pet
+        </Typography>
+        <FormControl>
+          <InputLabel id="breed">Breed</InputLabel>
+          <Select
+            name="breed"
+            label="Breed"
+            required={true}
+            onChange={handleChange}
+            labelId="breed"
+            value={formState.breed}
+          >
+            {breedsList.map((breed) => (
+              <MenuItem key={breed} value={breed}>
+                {breed}
+              </MenuItem>
+            ))}
+          </Select>
+          {fields.map((field) => (
             <TextField
-              required
-              name="name"
-              label="Name"
-              value={formState.name}
+              key={field.name}
+              required={field.required}
+              name={field.name}
+              label={field.label}
+              value={formState[field.name]}
               fullWidth
               variant="standard"
+              multiline={field.multiline}
+              rows={field.rows}
+              type={field.type}
               onChange={handleChange}
             />
-            <TextField
-              required
-              name="breed"
-              label="Breed"
-              value={formState.breed}
-              fullWidth
-              variant="standard"
-              onChange={handleChange}
-            />
-            <TextField
-              type="date"
-              name="birthday"
-              label="Birthday"
-              value={formState.birthday}
-              fullWidth
-              variant="standard"
-              onChange={handleChange}
-            />
-            <TextField
-              name="colour"
-              label="colour"
-              value={formState.colour}
-              fullWidth
-              variant="standard"
-              onChange={handleChange}
-            />
-            <TextField
-              name="allergies"
-              label="Allergies"
-              value={formState.allergies}
-              fullWidth
-              variant="standard"
-              onChange={handleChange}
-            />
-            <TextField
-              id="otherinfo"
-              name="otherinfo"
-              label="Other information"
-              value={formState.otherinfo}
-              fullWidth
-              variant="standard"
-              multiline
-              rows={2}
-              onChange={handleChange}
-            />
-            <Box>
-              <Button
-                variant="outline"
-                color="secondary"
-                size="small"
-                onClick={clearValue}
-                align="center"
-              >
-                Clear
-              </Button>
-              <Button
-                variant="outline"
-                color="primary"
-                onClick={handleFormSubmit}
-                size="small"
-                align="center"
-              >
-                Add pet
-              </Button>
-            </Box>
-          </FormControl>
-        </>
-      ) : (
-        <p>
-          You need to be logged in to share your thoughts. Please{" "}
-          <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
-        </p>
-      )}
-    </Container>
+          ))}
+          <Box>
+            <Button
+              variant="outlined"
+              color="secondary"
+              size="small"
+              onClick={clearValue}
+              align="center"
+            >
+              Clear
+            </Button>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={handleFormSubmit}
+              size="small"
+              align="center"
+            >
+              Add pet
+            </Button>
+          </Box>
+        </FormControl>
+      </Container>
+    </>
   );
 };
 
