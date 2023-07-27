@@ -1,8 +1,10 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User, Pet } = require("../models");
 const { signToken } = require("../utils/auth");
+const DateScalar = require("../utils/date.scalar");
 
 const resolvers = {
+  Date: DateScalar,
   Query: {
     user: async (parent, { username }) => {
       return User.findOne({ username }).populate("pets");

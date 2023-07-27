@@ -12,13 +12,13 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import moment from "moment";
+
+import formatDate from "../../utils/formatdate";
 
 const PetList = ({ pets }) => {
   if (!pets.length) {
     return <h3>No pets yet.</h3>;
   }
-  console.log(pets);
 
   return (
     <>
@@ -29,11 +29,8 @@ const PetList = ({ pets }) => {
             {pets.map((pet) => {
               const { name, breed, birthday, colour, allergies, otherinfo } =
                 pet;
-              const dateObject = new Date(birthday * 1000);
-              const day = String(dateObject.getDate()).padStart(2, "0");
-              const month = String(dateObject.getMonth() + 1).padStart(2, "0"); // Months are zero-based
-              const year = dateObject.getFullYear();
-              const formattedBirthday = `${day}/${month}/${year}`;
+
+              const formattedDate = formatDate(birthday);
 
               return (
                 <Grid item key={pet._id} xs={12} sm={6} md={4}>
@@ -51,7 +48,7 @@ const PetList = ({ pets }) => {
                         {breed}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        {formattedBirthday}
+                        {formattedDate}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         {colour}

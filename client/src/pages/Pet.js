@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_SINGLE_PET } from "../utils/queries";
+import formatDate from "../utils/formatdate";
 
 import {
   Box,
@@ -70,7 +71,7 @@ const Pet = () => {
             }}
           >
             <Typography>Breed: {pet.breed}</Typography>
-            <Typography>Birthday: {pet.birthday}</Typography>
+            <Typography>Birthday: {formatDate(pet.birthday)}</Typography>
             <Typography>Colour: {pet.colour}</Typography>
             <Typography>Allergies: {pet.allergies}</Typography>
             <Typography>Other information: {pet.otherinfo}</Typography>

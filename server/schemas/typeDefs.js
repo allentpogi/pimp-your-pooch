@@ -1,6 +1,9 @@
 const { gql } = require("apollo-server-express");
+// const DateScalar = require("../utils/date.scalar");
 
 const typeDefs = gql`
+  scalar Date
+
   type User {
     _id: ID
     username: String
@@ -14,7 +17,7 @@ const typeDefs = gql`
     _id: ID
     name: String
     breed: String
-    birthday: String
+    birthday: Date
     colour: String
     allergies: String
     otherinfo: String
@@ -43,7 +46,7 @@ const typeDefs = gql`
     addPet(
       name: String!
       breed: String!
-      birthday: String
+      birthday: Date
       colour: String
       allergies: String
       otherinfo: String

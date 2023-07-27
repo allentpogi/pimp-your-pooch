@@ -38,7 +38,7 @@ export const ADD_PET = gql`
   mutation addPet(
     $name: String!
     $breed: String!
-    $birthday: String
+    $birthday: Date
     $colour: String
     $allergies: String
     $otherinfo: String
