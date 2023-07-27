@@ -52,7 +52,7 @@ const MyPack = () => {
       <CssBaseline />
       <Box>
         <Typography
-          variant="h3"
+          variant="h5"
           sx={{
             marginTop: "1.5rem",
           }}

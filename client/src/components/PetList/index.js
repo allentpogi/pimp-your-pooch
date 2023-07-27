@@ -40,8 +40,13 @@ const PetList = ({ pets }) => {
                 <Grid item key={pet._id} xs={12} sm={6} md={4}>
                   <Card sx={{ height: "100%" }}>
                     <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
-                        {name}
+                      <Typography
+                        gutterBottom
+                        variant="h6"
+                        component="div"
+                        align="center"
+                      >
+                        <Link to={`/pets/${pet._id}`}>{name}</Link>
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         {breed}
