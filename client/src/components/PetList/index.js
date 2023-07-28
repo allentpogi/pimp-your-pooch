@@ -30,7 +30,7 @@ const PetList = ({ pets }) => {
               const { name, breed, birthday, colour, allergies, otherinfo } =
                 pet;
 
-              const formattedDate = formatDate(birthday);
+              const formattedBirthday = formatDate(birthday);
 
               return (
                 <Grid item key={pet._id} xs={12} sm={6} md={4}>
@@ -48,7 +48,7 @@ const PetList = ({ pets }) => {
                         {breed}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        {formattedDate}
+                        {formattedBirthday}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
                         {colour}

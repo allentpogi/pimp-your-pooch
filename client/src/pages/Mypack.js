@@ -61,14 +61,7 @@ const MyPack = () => {
         >
           Members of your pack:
         </Typography>
-        <Box
-          sx={{
-            backgroundColor: "#E8F5E9",
-            border: "1px solid grey",
-            marginTop: "1.5rem",
-            padding: "2rem",
-          }}
-        >
+        <Box>
           <PetList pets={user.pets} />
         </Box>
       </Box>
