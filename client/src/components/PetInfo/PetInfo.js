@@ -3,12 +3,8 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_SINGLE_PET } from "../../utils/queries";
 import formatDate from "../../utils/formatdate";
+import { getIconComponent } from "../../utils/geticoncomponent";
 import BadgeRoundedIcon from "@mui/icons-material/BadgeRounded";
-import PetsRoundedIcon from "@mui/icons-material/PetsRounded";
-import CakeRoundedIcon from "@mui/icons-material/CakeRounded";
-import PaletteRoundedIcon from "@mui/icons-material/PaletteRounded";
-import LocalHospitalRoundedIcon from "@mui/icons-material/LocalHospitalRounded";
-import ArticleRoundedIcon from "@mui/icons-material/ArticleRounded";
 import Avatar from "@mui/material/Avatar";
 
 import {
@@ -26,6 +22,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
+  Paper,
   TextField,
   Typography,
 } from "@mui/material";
@@ -62,23 +59,6 @@ const PetInfo = () => {
     },
   ];
 
-  const getIconComponent = (icon) => {
-    switch (icon) {
-      case "PetsRoundedIcon":
-        return <PetsRoundedIcon />;
-      case "CakeRoundedIcon":
-        return <CakeRoundedIcon />;
-      case "PaletteRoundedIcon":
-        return <PaletteRoundedIcon />;
-      case "LocalHospitalRoundedIcon":
-        return <LocalHospitalRoundedIcon />;
-      case "ArticleRoundedIcon":
-        return <ArticleRoundedIcon />;
-      default:
-        return null;
-    }
-  };
-
   const fetchImage = async () => {
     const response = await fetch(
       `https://dog.ceo/api/breed/${petBreed}/images/random`
@@ -102,15 +82,13 @@ const PetInfo = () => {
 
   return (
     <>
+      <CssBaseline />
       <Container>
-        <CssBaseline />
-
         <Box
           sx={{
-            marginTop: 8,
             display: "flex",
             flexDirection: "column",
-            // alignItems: "center",
+            marginTop: "1rem",
           }}
         >
           <Box
@@ -131,6 +109,7 @@ const PetInfo = () => {
               flexDirection: "row",
               flexWrap: "wrap",
               marginTop: "1.5rem",
+              gap: "1rem",
             }}
           >
             <Box
@@ -138,10 +117,11 @@ const PetInfo = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                backgroundColor: "#ede7f6",
-                marginRight: "1rem",
+                backgroundColor: "#eceff1",
                 padding: "1rem",
                 borderRadius: "1rem",
+                border: "",
+                marginBottom: "1rem",
               }}
             >
               <img
@@ -151,18 +131,16 @@ const PetInfo = () => {
                   width: "300px",
                   height: "auto",
                   borderRadius: "1rem",
-                  //   marginRight: "1rem",
                   display: imageUrl ? "flex" : "none",
                 }}
               />
             </Box>
-            <Box>
+
+            <Box fullWidth sx={{ padding: "1rem", marginBottom: "1rem" }}>
               <List
                 sx={{
                   width: "100%",
                   maxWidth: 360,
-                  bgcolor: "background.paper",
-                  marginLeft: "1rem",
                 }}
               >
                 {petInfo.map((info, index) => (

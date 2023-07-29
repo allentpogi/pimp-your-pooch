@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import {
@@ -49,6 +49,15 @@ const MyPack = () => {
     );
   }
 
+  const [petList, setPetList] = useState(user.pets);
+
+  // Callback function to handle pet removal
+  const handlePetRemoval = (petId) => {
+    // Filter out the removed pet from the list
+    const updatedPets = petList.filter((pet) => pet._id !== petId);
+    setPetList(updatedPets);
+  };
+
   return (
     <Container>
       <CssBaseline />
@@ -62,7 +71,7 @@ const MyPack = () => {
           Members of your pack:
         </Typography>
         <Box>
-          <PetList pets={user.pets} />
+          <PetList pets={petList} onPetRemoval={handlePetRemoval} />
         </Box>
       </Box>
     </Container>

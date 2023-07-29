@@ -82,9 +82,7 @@ export const REMOVE_PET = gql`
         _id
         bookingType
         bookingDate
-        lengthOfstay
         notes
-        bookingCompleted
       }
     }
   }

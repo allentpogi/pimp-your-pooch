@@ -39,6 +39,7 @@ const client = new ApolloClient({
 });
 
 export default function App() {
+  document.body.style = "background: #fafafa;";
   useEffect(() => {
     document.title = "Pimp my pooch";
   }, []);
