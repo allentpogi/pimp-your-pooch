@@ -58,6 +58,84 @@ export const ADD_PET = gql`
       colour
       allergies
       otherinfo
+      appointments {
+        _id
+        bookingType
+        bookingDate
+        notes
+      }
+    }
+  }
+`;
+
+export const REMOVE_PET = gql`
+  mutation removePet($petId: ID!) {
+    removePet(petId: $petId) {
+      _id
+      name
+      breed
+      birthday
+      colour
+      allergies
+      otherinfo
+      appointments {
+        _id
+        bookingType
+        bookingDate
+        lengthOfstay
+        notes
+        bookingCompleted
+      }
+    }
+  }
+`;
+
+export const ADD_APPOINTMENT = gql`
+  mutation addAppointment(
+    $petId: ID!
+    $bookingType: String!
+    $bookingDate: Date!
+    $notes: String
+  ) {
+    addAppointment(
+      petId: $petId
+      bookingType: $bookingType
+      bookingDate: $bookingDate
+      notes: $notes
+    ) {
+      _id
+      name
+      breed
+      birthday
+      colour
+      allergies
+      otherinfo
+      appointments {
+        _id
+        bookingType
+        bookingDate
+        notes
+      }
+    }
+  }
+`;
+
+export const REMOVE_APPOINTMENT = gql`
+  mutation removeAppointment($petId: ID!, $appointmentId: ID!) {
+    removeAppointment(petId: $petId, appointmentId: $appointmentId) {
+      _id
+      name
+      breed
+      birthday
+      colour
+      allergies
+      otherinfo
+      appointments {
+        _id
+        bookingType
+        bookingDate
+        notes
+      }
     }
   }
 `;

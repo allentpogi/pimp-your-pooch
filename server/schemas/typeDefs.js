@@ -21,6 +21,14 @@ const typeDefs = gql`
     colour: String
     allergies: String
     otherinfo: String
+    appointments: [Appointment]!
+  }
+
+  type Appointment {
+    _id: ID
+    bookingType: String!
+    bookingDate: Date!
+    notes: String
   }
 
   type Auth {
@@ -52,6 +60,13 @@ const typeDefs = gql`
       otherinfo: String
     ): Pet
     removePet(petId: ID!): Pet
+    addAppointment(
+      petId: ID!
+      bookingType: String!
+      bookingDate: Date!
+      notes: String
+    ): Pet
+    removeAppointment(petId: ID!, appointmentId: ID!): Pet
   }
 `;
 

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@apollo/client";
 import {
   Box,
   Button,
@@ -14,34 +16,70 @@ import {
   Typography,
 } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
+import { ADD_APPOINTMENT } from "../../utils/mutations";
+import { QUERY_SINGLE_PET } from "../../utils/queries";
 
 const bookingTypes = [
-  { value: 1, label: "Pamper my pooch" },
-  { value: 2, label: "Doggy day out" },
-  { value: 3, label: "Holiday" },
+  { value: "1", label: "Pamper my pooch" },
+  { value: "2", label: "Doggy day out" },
+  { value: "3", label: "Holiday" },
 ];
 
 const BookingForm = () => {
   const [formState, setFormState] = useState({
-    appointmentType: 1,
-    appointmentDate: "2023-08-01",
+    bookingType: 1,
+    bookingDate: "2023-08-01",
     notes: "",
   });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState((prev) => ({ ...prev, [name]: value }));
+    console.log("inside set", formState);
   };
 
   const clearValue = () => {
     setFormState({
-      appointmentType: 1,
-      appointmentDate: "",
+      bookingType: "1",
+      bookingDate: "2023-08-01",
       notes: "",
     });
   };
 
-  const handleFormSubmit = () => {};
+  const { petId } = useParams();
+  // const { pet } = useQuery(QUERY_SINGLE_PET, {
+  //   variables: { petId: petId },
+  // });
+
+  console.log(petId);
+  console.log(formState);
+  // console.log({petId, formState});
+
+  const [addAppointment, { error }] = useMutation(ADD_APPOINTMENT);
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    console.log({
+      variables: {
+        petId,
+        ...formState,
+      },
+    });
+
+    try {
+      const { data } = await addAppointment({
+        variables: {
+          petId,
+          ...formState,
+        },
+      });
+
+      clearValue();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
@@ -51,14 +89,14 @@ const BookingForm = () => {
           Make a booking
         </Typography>
         <FormControl>
-          <InputLabel id="appointmentType">Booking type</InputLabel>
+          <InputLabel id="bookingType">Booking type</InputLabel>
           <Select
-            name="appointmentType"
+            name="bookingType"
             label="Booking type"
             required={true}
             onChange={handleChange}
-            labelId="appointmentType"
-            value={formState.appointmentType}
+            labelId="bookingType"
+            value={formState.bookingType}
           >
             {bookingTypes.map((type) => (
               <MenuItem key={type.value} value={type.value}>
@@ -67,12 +105,12 @@ const BookingForm = () => {
             ))}
           </Select>
           <TextField
-            name="appointmentDate"
+            name="bookingDate"
             label="Date"
             required={true}
             onChange={handleChange}
-            labelId="appointmentDate"
-            value={formState.appointmentDate}
+            labelId="bookingDate"
+            value={formState.bookingDate}
             type="date"
             fullWidth
             variant="standard"

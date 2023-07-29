@@ -86,6 +86,47 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    addAppointment: async (
+      parent,
+      { petId, bookingType, bookingDate, notes },
+      context
+    ) => {
+      if (context.user) {
+        return Pet.findOneAndUpdate(
+          { _id: petId },
+          {
+            $addToSet: {
+              appointments: {
+                bookingType,
+                bookingDate,
+                notes,
+              },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    removeAppointment: async (parent, { petId, appointmentId }, context) => {
+      if (context.user) {
+        return Pet.findOneAndUpdate(
+          { _id: petId },
+          {
+            $pull: {
+              appointments: {
+                _id: appointmentId,
+              },
+            },
+          },
+          { new: true }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
   },
 };
 

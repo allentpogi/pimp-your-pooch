@@ -64,6 +64,12 @@ export const QUERY_SINGLE_PET = gql`
       colour
       allergies
       otherinfo
+      appointments {
+        _id
+        bookingType
+        bookingDate
+        notes
+      }
     }
   }
 `;

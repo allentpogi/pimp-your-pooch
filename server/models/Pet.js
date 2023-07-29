@@ -28,7 +28,22 @@ const petSchema = new Schema({
     type: String,
     required: false,
   },
-  // appointments: [{}],
+  appointments: [
+    {
+      bookingType: {
+        type: String,
+        required: true,
+      },
+      bookingDate: {
+        type: Date,
+        required: true,
+      },
+      notes: {
+        type: String,
+        trim: true,
+      },
+    },
+  ],
 });
 
 const Pet = model("Pet", petSchema);
