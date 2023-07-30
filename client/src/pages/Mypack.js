@@ -1,23 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Container,
-  CssBaseline,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Box, Container, CssBaseline, Typography } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
+import Diversity1RoundedIcon from "@mui/icons-material/Diversity1Rounded";
+import Avatar from "@mui/material/Avatar";
 
 // import PetForm from "../components/PetForm";
 import PetList from "../components/PetList";
 
-import { QUERY_USER, QUERY_ME } from "../utils/queries";
+import { QUERY_ME } from "../utils/queries";
 
 import Auth from "../utils/auth";
 
@@ -67,22 +58,40 @@ const MyPack = () => {
   };
 
   return (
-    <Container>
+    <>
       <CssBaseline />
-      <Box>
-        <Typography
-          variant="h5"
+      <Container>
+        <Box
           sx={{
-            marginTop: "1.5rem",
+            display: "flex",
+            flexDirection: "column",
+            marginTop: "1rem",
           }}
         >
-          Members of your pack:
-        </Typography>
-        <Box>
-          <PetList pets={petList} onPetRemoval={handlePetRemoval} />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: "success.main" }}>
+              <Diversity1RoundedIcon />
+            </Avatar>
+            <Typography variant="h5">My fur family</Typography>
+          </Box>
+          <Box>
+            <Box
+              sx={{
+                marginTop: "1rem",
+              }}
+            >
+              <PetList pets={petList} onPetRemoval={handlePetRemoval} />
+            </Box>
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </>
   );
 };
 

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import PetForm from "../PetForm";
 import formatDate from "../../utils/formatdate";
 import { getIconComponent } from "../../utils/geticoncomponent";
+import BadgeRoundedIcon from "@mui/icons-material/BadgeRounded";
 import Avatar from "@mui/material/Avatar";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
 
@@ -20,6 +21,7 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
+  Paper,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -55,12 +57,12 @@ const PetCard = ({ pet, onPetRemoval }) => {
     update(cache, { data: { removePet } }) {
       try {
         // Read the current list of pets from the cache
-        const data = cache.readQuery({ query: QUERY_PETS });
+        const data = cache.readQuery({ query: QUERY_PETS }) ?? { pets: [{}] };
 
-        if (!data || !data.pets) {
-          // If data or pets are null, there's nothing to update in the cache
-          return;
-        }
+        // if (!data || !data.pets) {
+        //   // If data or pets are null, there's nothing to update in the cache
+        //   return;
+        // }
 
         const { pets } = data;
 
@@ -76,18 +78,15 @@ const PetCard = ({ pet, onPetRemoval }) => {
         // Update me object's cache to remove the pet from the "pets" array
         const { me } = cache.readQuery({ query: QUERY_ME });
 
-        if (me && me.pets) {
-          cache.writeQuery({
-            query: QUERY_ME,
-            data: {
-              me: {
-                ...me,
-                pets: me.pets.filter((pet) => pet.id !== removePet.id),
-              },
+        cache.writeQuery({
+          query: QUERY_ME,
+          data: {
+            me: {
+              ...me,
+              pets: updatedPets,
             },
-          });
-        }
-        onPetRemoval(removePet.id);
+          },
+        });
       } catch (e) {
         console.error(e);
       }
@@ -110,12 +109,23 @@ const PetCard = ({ pet, onPetRemoval }) => {
 
   return (
     <Grid item key={pet._id} xs={12} sm={6} md={4}>
-      <Card sx={{ height: "100%" }}>
+      <Card sx={{ height: "100%", boxShadow: "3" }}>
         <CardContent>
-          <Typography gutterBottom variant="h6" component="div" align="center">
-            <Link to={`/pets/${pet._id}`}>{name}</Link>
-          </Typography>
-
+          <Box
+            sx={{
+              marginTop: "1rem",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: "success.main" }}>
+              <BadgeRoundedIcon />
+            </Avatar>
+            <Typography variant="h5" align="center">
+              <Link to={`/pets/${pet._id}`}>{name}</Link>
+            </Typography>
+          </Box>
           <Box sx={{ padding: "1rem", marginBottom: "1rem" }}>
             <List sx={{ width: "100%", maxWidth: 360 }}>
               {petInfo.map((info, index) => (
@@ -171,12 +181,12 @@ const PetList = ({ pets, onPetRemoval }) => {
     <>
       <CssBaseline />
       <Container>
-        <Grid container spacing={4}>
+        <Grid container spacing={2}>
           {pets.map((pet) => (
             <PetCard key={pet._id} pet={pet} onPetRemoval={onPetRemoval} />
           ))}
           <Grid item xs={12} sm={6} md={4}>
-            <Card>
+            <Card sx={{ boxShadow: 3 }}>
               <PetForm />
             </Card>
           </Grid>

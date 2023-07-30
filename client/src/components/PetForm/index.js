@@ -12,6 +12,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import GroupAddRoundedIcon from "@mui/icons-material/GroupAddRounded";
+import Avatar from "@mui/material/Avatar";
 import { makeStyles } from "tss-react/mui";
 
 import { ADD_PET } from "../../utils/mutations";
@@ -30,7 +32,9 @@ const PetForm = () => {
   const [addPet, { error }] = useMutation(ADD_PET, {
     update(cache, { data: { addPet } }) {
       try {
-        const { pets } = cache.readQuery({ query: QUERY_PETS });
+        const { pets } = cache.readQuery({ query: QUERY_PETS }) ?? {
+          pets: [{}],
+        };
 
         cache.writeQuery({
           query: QUERY_PETS,
@@ -116,10 +120,20 @@ const PetForm = () => {
     <>
       <Container>
         <CssBaseline />
-        <Typography variant="h6" gutterBottom>
-          Add a pet
-        </Typography>
-        <FormControl>
+        <Box
+          sx={{
+            marginTop: "1rem",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "success.main" }}>
+            <GroupAddRoundedIcon />
+          </Avatar>
+          <Typography variant="h5">Add a pooch</Typography>
+        </Box>
+        <FormControl variant="standard" fullWidth>
           <InputLabel id="breed">Breed</InputLabel>
           <Select
             name="breed"
@@ -150,7 +164,15 @@ const PetForm = () => {
               onChange={handleChange}
             />
           ))}
-          <Box>
+          <Box
+            sx={{
+              display: "flex",
+              gap: "0.5rem",
+              marginTop: "1rem",
+              marginBottom: "1rem",
+              justifyContent: "right",
+            }}
+          >
             <Button
               variant="outlined"
               color="secondary"
@@ -161,7 +183,7 @@ const PetForm = () => {
               Clear
             </Button>
             <Button
-              variant="outlined"
+              variant="contained"
               color="primary"
               onClick={handleFormSubmit}
               size="small"

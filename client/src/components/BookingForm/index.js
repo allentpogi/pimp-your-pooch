@@ -81,12 +81,6 @@ const BookingForm = () => {
             marginTop: "1rem",
             display: "flex",
             flexDirection: "column",
-          }}
-        ></Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
             alignItems: "center",
           }}
         >
@@ -149,6 +143,7 @@ const BookingForm = () => {
                 display: "flex",
                 gap: "0.5rem",
                 marginTop: "1rem",
+                marginBottom: "1rem",
                 justifyContent: "right",
               }}
             >

@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_SINGLE_PET } from "../utils/queries";
 import formatDate from "../utils/formatdate";
 import BookingForm from "../components/BookingForm";
-import PetInfo from "../components/PetInfo/PetInfo";
+import PetInfo from "../components/PetInfo/";
 import { makeStyles } from "tss-react/mui";
 
 import {
@@ -20,11 +20,7 @@ import {
   Typography,
 } from "@mui/material";
 
-const useStyles = makeStyles()(() => ({
-  bgmain: {
-    backgroundColor: "#fafafa",
-  },
-}));
+const useStyles = makeStyles()(() => ({}));
 
 const Pet = () => {
   const navigate = useNavigate();
@@ -34,52 +30,54 @@ const Pet = () => {
 
   const { classes } = useStyles();
   return (
-    <Box className={classes.bgmain}>
-      <Container>
-        <CssBaseline />
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            marginTop: "1.5rem",
-            gap: "1rem",
-          }}
-        >
-          <Paper elevation={3}>
-            <Box
-              x={{
-                flex: 2,
-              }}
-            >
-              <PetInfo />
-            </Box>
-          </Paper>
-          <Paper elevation={3}>
-            <Box
-              x={{
-                flex: 1,
-              }}
-            >
-              <BookingForm />
-            </Box>
-          </Paper>
-        </Box>
-        <Box
-          align="center"
-          sx={{ marginTop: "1.5rem", marginBottom: "1.5rem" }}
-        >
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleClick}
-            size="large"
+    <>
+      <CssBaseline />
+      <Box>
+        <Container>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              marginTop: "1.5rem",
+              gap: "1rem",
+            }}
           >
-            Back to My pack
-          </Button>
-        </Box>
-      </Container>
-    </Box>
+            <Paper elevation={3}>
+              <Box
+                x={{
+                  flex: 2,
+                }}
+              >
+                <PetInfo />
+              </Box>
+            </Paper>
+            <Paper elevation={3}>
+              <Box
+                x={{
+                  flex: 1,
+                }}
+              >
+                <BookingForm />
+              </Box>
+            </Paper>
+          </Box>
+          <Box
+            align="center"
+            sx={{ marginTop: "1.5rem", marginBottom: "1.5rem" }}
+          >
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleClick}
+              size="large"
+            >
+              Back to My pack
+            </Button>
+          </Box>
+        </Container>
+      </Box>
+    </>
   );
 };
 export default Pet;
