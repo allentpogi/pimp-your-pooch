@@ -141,7 +141,7 @@ const PetForm = () => {
             label="Breed"
             required={true}
             onChange={handleChange}
-            labelId="breed"
+            labelid="breed"
             value={formState.breed}
           >
             {breedsList.map((breed) => (

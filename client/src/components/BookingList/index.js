@@ -1,40 +1,24 @@
-import React, { useState } from "react";
-import { useMutation } from "@apollo/client";
-import { Link } from "react-router-dom";
-import PetForm from "../PetForm";
+import React from "react";
 import formatDate from "../../utils/formatdate";
-import { getIconComponent } from "../../utils/geticoncomponent";
+import { getBookingtypeName } from "../../utils/getbookingtypename";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import Avatar from "@mui/material/Avatar";
 
 import {
   Box,
-  Card,
-  CardContent,
   Container,
   CssBaseline,
-  Divider,
-  Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Paper,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-  Tooltip,
   Typography,
 } from "@mui/material";
 
-import { QUERY_PETS, QUERY_ME } from "../../utils/queries";
-
 const BookingList = ({ pet }) => {
   //   const pet = singlePet.singlePet;
-  console.log(pet);
+  console.log("bookinglist", pet);
   const appointments = pet.appointments;
   console.log("appointments", appointments);
 
@@ -74,11 +58,13 @@ const BookingList = ({ pet }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {appointments.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell>{appointments.bookingType}</TableCell>
-                  <TableCell>{appointments.bookingDate}</TableCell>
-                  <TableCell>{appointments.notes}</TableCell>
+              {appointments.map((appointment) => (
+                <TableRow key={appointment.id}>
+                  <TableCell>
+                    {getBookingtypeName(appointment.bookingType)}
+                  </TableCell>
+                  <TableCell>{formatDate(appointment.bookingDate)}</TableCell>
+                  <TableCell>{appointment.notes}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

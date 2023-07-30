@@ -28,7 +28,7 @@ const PetInfo = ({ pet }) => {
   // });
 
   // const pet = data?.pet || {};
-  console.log("pet", pet);
+  console.log("bookinginfo", pet);
   // const pet = singlePet.singlePet;
   console.log("petinfo1", pet);
   const petBreed = pet.breed;

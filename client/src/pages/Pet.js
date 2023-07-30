@@ -6,7 +6,6 @@ import formatDate from "../utils/formatdate";
 import BookingForm from "../components/BookingForm";
 import PetInfo from "../components/PetInfo/";
 import BookingList from "../components/BookingList";
-import { makeStyles } from "tss-react/mui";
 
 import {
   Box,
@@ -21,15 +20,36 @@ import {
   Typography,
 } from "@mui/material";
 
-const useStyles = makeStyles()(() => ({}));
-
 const Pet = () => {
   const { petId } = useParams();
   console.log("petjs.petid", petId);
 
   const { loading, data } = useQuery(QUERY_SINGLE_PET, {
     variables: { petId: petId },
+    // fetchPolicy: "no-cache",
   });
+
+  // const petValue = data?.pet || {};
+  const [pet, setPet] = useState({});
+
+  console.log("loading", loading);
+  // console.log("originaldata", data?.pet || {});
+  const [dataLoaded, setDataLoaded] = useState(loading);
+  console.log("data after usequery", data);
+
+  useEffect(() => {
+    // console.log(data);
+    if (data?.pet) {
+      setPet(data?.pet || {});
+    }
+  }, [data?.pet]);
+
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/me");
+  };
+
+  // console.log("firstdata", data);
 
   if (loading) {
     // Show a loading indicator or skeleton while data is being fetched
@@ -41,16 +61,19 @@ const Pet = () => {
     return <p>Pet not found</p>;
   }
 
-  console.log("petjs.petid11", petId);
-
-  console.log("petjs.data", data);
-
-  const pet = data?.pet || {};
+  console.log("petjs.petid", petId);
+  console.log("petjs.data", data?.pet || {});
   console.log("petjs.pet", pet);
 
-  // const navigate = useNavigate();
-  const handleClick = () => {
-    // navigate("/me");
+  const singlePet = data?.pet || {};
+
+  // const retrievedPet = data?.pet || {};
+
+  const addBooking = (newAppointment) => {
+    setPet((pet) => ({
+      ...pet,
+      appointments: [...pet.appointments, newAppointment],
+    }));
   };
 
   // const { classes } = useStyles();
@@ -62,17 +85,17 @@ const Pet = () => {
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Paper elevation={3}>
-                <PetInfo pet={pet} />
+                <PetInfo pet={singlePet} />
               </Paper>
             </Grid>
             <Grid item xs={12} sm={4}>
               <Paper elevation={3} sx={{ height: "100%" }}>
-                <BookingForm pet={pet} />
+                <BookingForm pet={singlePet} addBooking={addBooking} />
               </Paper>
             </Grid>
             <Grid item xs={12} sm={8}>
               <Paper elevation={3} sx={{ height: "100%" }}>
-                <BookingList pet={pet} />
+                <BookingList pet={singlePet} />
               </Paper>
             </Grid>
           </Grid>

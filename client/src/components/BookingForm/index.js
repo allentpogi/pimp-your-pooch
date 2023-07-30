@@ -26,7 +26,7 @@ const bookingTypes = [
   { value: "3", label: "Holiday" },
 ];
 
-const BookingForm = ({ pet }) => {
+const BookingForm = ({ pet, addBooking }) => {
   // const pet = singlePet.singlePet;
   console.log("bookingformn,pet", pet);
   const petId = pet._id;
@@ -73,6 +73,13 @@ const BookingForm = ({ pet }) => {
     } catch (err) {
       console.error(err);
     }
+
+    const newAppointment = {
+      petId,
+      ...formState,
+    };
+
+    addBooking(newAppointment);
   };
 
   return (
@@ -109,7 +116,7 @@ const BookingForm = ({ pet }) => {
               label="Booking type"
               required={true}
               onChange={handleChange}
-              labelId="bookingType"
+              labelid="bookingType"
               value={formState.bookingType}
             >
               {bookingTypes.map((type) => (
@@ -123,7 +130,7 @@ const BookingForm = ({ pet }) => {
               label="Date"
               required={true}
               onChange={handleChange}
-              labelId="bookingDate"
+              labelid="bookingDate"
               value={formState.bookingDate}
               type="date"
               fullWidth
@@ -134,7 +141,7 @@ const BookingForm = ({ pet }) => {
               label="Notes"
               required={false}
               onChange={handleChange}
-              labelId="notes"
+              labelid="notes"
               value={formState.notes}
               fullWidth
               variant="standard"
