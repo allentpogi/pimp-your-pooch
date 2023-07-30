@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import {
   Box,
@@ -22,19 +22,29 @@ import { QUERY_USER, QUERY_ME } from "../utils/queries";
 import Auth from "../utils/auth";
 
 const MyPack = () => {
-  const { username: userParam } = useParams();
+  // const { username: userParam } = useParams();
+  // console.log("userParam", userParam);
 
-  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
-    variables: { username: userParam },
-  });
+  const { loading, data } = useQuery(QUERY_ME, {});
 
-  const user = data?.me || data?.user || {};
+  const user = data?.me || {};
+  console.log("user", user);
+  console.log("data", data);
+
+  const [petList, setPetList] = useState([]);
+  console.log("mypack", petList);
+
+  useEffect(() => {
+    if (user?.pets) {
+      setPetList(user.pets);
+    }
+  }, [user.pets]);
 
   console.log({ user });
   // navigate to personal profile page if username is yours
-  if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
-    return <Navigate to="/me" />;
-  }
+  // if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
+  //   return <Navigate to="/me" />;
+  // }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -48,8 +58,6 @@ const MyPack = () => {
       </h4>
     );
   }
-
-  const [petList, setPetList] = useState(user.pets);
 
   // Callback function to handle pet removal
   const handlePetRemoval = (petId) => {

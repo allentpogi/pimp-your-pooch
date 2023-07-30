@@ -100,9 +100,12 @@ const PetCard = ({ pet, onPetRemoval }) => {
     console.log(petId);
     try {
       await removePet({ variables: { petId: petId } });
-    } catch (e) {
-      console.error(e);
+      console.log(petId);
+    } catch (err) {
+      console.error(err);
     }
+
+    onPetRemoval(pet._id);
   };
 
   return (
@@ -153,21 +156,24 @@ const PetCard = ({ pet, onPetRemoval }) => {
 };
 
 const PetList = ({ pets, onPetRemoval }) => {
-  const [petList, setPetList] = useState(pets);
+  // const [petList, setPetList] = useState(pets);
 
-  const handlePetRemoval = (petId) => {
-    // Filter out the removed pet from the list
-    const updatedPets = petList.filter((pet) => pet._id !== petId);
-    setPetList(updatedPets);
-  };
+  // const handlePetRemoval = (petId) => {
+  //   // Filter out the removed pet from the list
+  //   const updatedPets = petList.filter((pet) => pet._id !== petId);
+  //   setPetList(updatedPets);
+  // };
+
+  console.log("child", pets);
+  console.log("onPetRemoval", onPetRemoval);
 
   return (
     <>
       <CssBaseline />
       <Container>
         <Grid container spacing={4}>
-          {petList.map((pet) => (
-            <PetCard key={pet._id} pet={pet} onPetRemoval={handlePetRemoval} />
+          {pets.map((pet) => (
+            <PetCard key={pet._id} pet={pet} onPetRemoval={onPetRemoval} />
           ))}
           <Grid item xs={12} sm={6} md={4}>
             <Card>
