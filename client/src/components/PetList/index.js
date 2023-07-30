@@ -186,7 +186,7 @@ const PetList = ({ pets, onPetRemoval }) => {
             <PetCard key={pet._id} pet={pet} onPetRemoval={onPetRemoval} />
           ))}
           <Grid item xs={12} sm={6} md={4}>
-            <Card sx={{ boxShadow: 3 }}>
+            <Card sx={{ boxShadow: 3, height: "100%" }}>
               <PetForm />
             </Card>
           </Grid>

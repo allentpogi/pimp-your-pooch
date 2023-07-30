@@ -26,8 +26,11 @@ const bookingTypes = [
   { value: "3", label: "Holiday" },
 ];
 
-const BookingForm = () => {
-  const { petId } = useParams();
+const BookingForm = ({ pet }) => {
+  // const pet = singlePet.singlePet;
+  console.log("bookingformn,pet", pet);
+  const petId = pet._id;
+  console.log("bookingformn,petid", petId);
   const [addAppointment, { error }] = useMutation(ADD_APPOINTMENT);
   const [formState, setFormState] = useState({
     bookingType: "",
@@ -74,11 +77,11 @@ const BookingForm = () => {
 
   return (
     <>
+      <CssBaseline />
       <Container>
-        <CssBaseline />
         <Box
           sx={{
-            marginTop: "1rem",
+            paddingTop: "1rem",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -136,7 +139,7 @@ const BookingForm = () => {
               fullWidth
               variant="standard"
               multiline={true}
-              rows={2}
+              rows={4}
             />
             <Box
               sx={{

@@ -9,34 +9,30 @@ import Avatar from "@mui/material/Avatar";
 
 import {
   Box,
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
   Container,
   CssBaseline,
   Divider,
-  FormControl,
-  Grid,
   List,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Paper,
-  TextField,
   Typography,
 } from "@mui/material";
 
-const PetInfo = () => {
-  const { petId } = useParams();
+const PetInfo = ({ pet }) => {
+  // const { petId } = useParams();
   const [imageUrl, setImageUrl] = useState("");
 
-  const { loading, data } = useQuery(QUERY_SINGLE_PET, {
-    variables: { petId: petId },
-  });
+  // const { loading, data } = useQuery(QUERY_SINGLE_PET, {
+  //   variables: { petId: petId },
+  // });
 
-  const pet = data?.pet || {};
+  // const pet = data?.pet || {};
+  console.log("pet", pet);
+  // const pet = singlePet.singlePet;
+  console.log("petinfo1", pet);
   const petBreed = pet.breed;
+  console.log("breed", petBreed);
   const formattedBirthday = formatDate(pet.birthday);
 
   const petInfo = [
@@ -68,17 +64,21 @@ const PetInfo = () => {
     setImageUrl(imageUrl);
   };
 
+  // useEffect(() => {
+  //   if (loading) {
+  //     return; // Do not proceed with the fetchImage() if data is still loading
+  //   }
+
+  //   fetchImage();
+  // }, [loading, petBreed]); // Adding loading and petBreed as dependencies
+
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
+
   useEffect(() => {
-    if (loading) {
-      return; // Do not proceed with the fetchImage() if data is still loading
-    }
-
     fetchImage();
-  }, [loading, petBreed]); // Adding loading and petBreed as dependencies
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  }, [petBreed]); // Adding loading and petBreed as dependencies
 
   return (
     <>
@@ -89,6 +89,7 @@ const PetInfo = () => {
             display: "flex",
             flexDirection: "column",
             marginTop: "1rem",
+            paddingTop: "1rem",
           }}
         >
           <Box
@@ -107,6 +108,7 @@ const PetInfo = () => {
             sx={{
               display: "flex",
               flexDirection: "row",
+              justifyContent: "center",
               flexWrap: "wrap",
               marginTop: "1.5rem",
               gap: "1rem",
@@ -120,7 +122,6 @@ const PetInfo = () => {
                 backgroundColor: "#eceff1",
                 padding: "1rem",
                 borderRadius: "1rem",
-                border: "",
                 marginBottom: "1rem",
               }}
             >
@@ -136,13 +137,8 @@ const PetInfo = () => {
               />
             </Box>
 
-            <Box fullWidth sx={{ padding: "1rem", marginBottom: "1rem" }}>
-              <List
-                sx={{
-                  width: "100%",
-                  maxWidth: 360,
-                }}
-              >
+            <Box sx={{ padding: "1rem", marginBottom: "1rem" }}>
+              <List>
                 {petInfo.map((info, index) => (
                   <>
                     <ListItem>

@@ -113,7 +113,7 @@ const PetForm = () => {
     { name: "birthday", label: "Birthday", type: "date" },
     { name: "colour", label: "Colour" },
     { name: "allergies", label: "Allergies" },
-    { name: "otherinfo", label: "Other information", multiline: true, rows: 2 },
+    { name: "otherinfo", label: "Other information", multiline: true, rows: 4 },
   ];
 
   return (
@@ -123,6 +123,7 @@ const PetForm = () => {
         <Box
           sx={{
             marginTop: "1rem",
+            paddingTop: "1rem",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
