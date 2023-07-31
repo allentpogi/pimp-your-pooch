@@ -138,7 +138,7 @@ const PetCard = ({ pet, onPetRemoval }) => {
                 justifyContent: "right",
               }}
             >
-              <Tooltip title="Click for more info">
+              <Tooltip title="Click to remove">
                 <IconButton
                   onClick={(event) => handleFormSubmit(event, pet._id)}
                 >

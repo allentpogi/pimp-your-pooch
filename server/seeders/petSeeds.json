@@ -1,0 +1,128 @@
+[
+  {
+    "name": "Benjie",
+    "breed": "akita",
+    "birthday": "2015-10-25",
+    "colour": "brown",
+    "allergies": "fish",
+    "otherinfo": "he is very lazy and often sleeping",
+    "appointments": [
+      {
+        "bookingType":"1",
+        "bookingDate":"2023-08-10",
+        "notes":"Drop off at 8AM"
+      },
+      {
+          "bookingType":"3",
+          "bookingDate":"2023-08-25",
+          "notes":"For 5 days. Drop off at 7AM."
+      }
+    ]
+  },
+  {
+    "name": "Spike",
+    "breed": "beagle",
+    "birthday": "2018-01-13",
+    "colour": "brown",
+    "allergies": "none",
+    "otherinfo": "very active and loves to play with other dogs",
+    "appointments": [
+      {
+        "bookingType":"1",
+        "bookingDate":"2023-08-10",
+        "notes":"Drop off at 8AM"
+      },
+      {
+        "bookingType":"2",
+        "bookingDate":"2023-08-12",
+        "notes":"Drop off at 8AM. Pick up at 3PM."
+      },
+      {
+          "bookingType":"3",
+          "bookingDate":"2023-08-25",
+          "notes":"For 5 days. Drop off at 7AM."
+      }
+    ]
+  },
+  {
+    "name": "Missy",
+    "breed": "borzoi",
+    "birthday": "2010-03-08",
+    "colour": "brown",
+    "allergies": "none",
+    "otherinfo": "she is an elderly dog who loves to sleep the whole day",
+    "appointments": [
+      {
+        "bookingType":"1",
+        "bookingDate":"2023-08-10",
+        "notes":"Drop off at 8AM"
+      },
+      {
+        "bookingType":"2",
+        "bookingDate":"2023-08-12",
+        "notes":"Drop off at 8AM. Pick up at 3PM."
+      },
+      {
+          "bookingType":"3",
+          "bookingDate":"2023-08-25",
+          "notes":"For 5 days. Drop off at 7AM."
+      }
+    ]
+  },
+  {
+    "name": "Noodles",
+    "breed": "boxer",
+    "birthday": "2016-08-09",
+    "colour": "tri-colour",
+    "allergies": "none",
+    "otherinfo": "a very happy dog",
+    "appointments": [
+      {
+        "bookingType":"1",
+        "bookingDate":"2023-08-10",
+        "notes":"Drop off at 8AM"
+      },
+      {
+        "bookingType":"2",
+        "bookingDate":"2023-08-12",
+        "notes":"Drop off at 8AM. Pick up at 3PM."
+      },
+      {
+          "bookingType":"3",
+          "bookingDate":"2023-08-25",
+          "notes":"For 5 days. Drop off at 7AM."
+      }
+    ]
+  },
+  {
+    "name": "Chumlee",
+    "breed": "bulldog",
+    "birthday": "2019-07-01",
+    "colour": "white with brown spots",
+    "allergies": "chicken",
+    "otherinfo": "he is very shy and will hide from other dogs",
+    "appointments": [
+      {
+        "bookingType":"1",
+        "bookingDate":"2023-08-10",
+        "notes":"Drop off at 8AM"
+      },
+      {
+        "bookingType":"2",
+        "bookingDate":"2023-08-12",
+        "notes":"Drop off at 8AM. Pick up at 3PM."
+      },
+      {
+          "bookingType":"3",
+          "bookingDate":"2023-08-25",
+          "notes":"For 5 days. Drop off at 7AM."
+      }
+    ]
+  }
+]
+
+
+
+
+
+

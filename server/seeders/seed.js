@@ -1,29 +1,23 @@
 const db = require("../config/connection");
-const { User, Thought } = require("../models");
+const { User, Pet } = require("../models");
 const userSeeds = require("./userSeeds.json");
-const thoughtSeeds = require("./thoughtSeeds.json");
+const petSeeds = require("./petSeeds.json");
+const bcrypt = require("bcrypt");
 
 db.once("open", async () => {
-  try {
-    await Thought.deleteMany({});
-    await User.deleteMany({});
+  // clean up db
+  await Pet.deleteMany({});
+  await User.deleteMany({});
 
-    await User.create(userSeeds);
+  // create users and pets
+  const users = await User.insertMany(userSeeds);
+  const pets = await Pet.insertMany(petSeeds);
 
-    for (let i = 0; i < thoughtSeeds.length; i++) {
-      const { _id, thoughtAuthor } = await Thought.create(thoughtSeeds[i]);
-      const user = await User.findOneAndUpdate(
-        { username: thoughtAuthor },
-        {
-          $addToSet: {
-            thoughts: _id,
-          },
-        }
-      );
-    }
-  } catch (err) {
-    console.error(err);
-    process.exit(1);
+  // randomly assign pets to users
+  for (newPet of pets) {
+    const tempUser = users[Math.floor(Math.random() * users.length)];
+    tempUser.pets.push(newPet._id);
+    await tempUser.save();
   }
 
   console.log("all done!");
