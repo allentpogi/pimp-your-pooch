@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { QUERY_SINGLE_PET } from "../utils/queries";
-import formatDate from "../utils/formatdate";
 import BookingForm from "../components/BookingForm";
 import PetInfo from "../components/PetInfo/";
 import BookingList from "../components/BookingList";
@@ -10,14 +9,10 @@ import BookingList from "../components/BookingList";
 import {
   Box,
   Button,
-  Card,
-  CardContent,
-  CardMedia,
   Container,
   CssBaseline,
   Grid,
   Paper,
-  Typography,
 } from "@mui/material";
 
 const Pet = () => {
@@ -34,7 +29,7 @@ const Pet = () => {
 
   console.log("loading", loading);
   // console.log("originaldata", data?.pet || {});
-  const [dataLoaded, setDataLoaded] = useState(loading);
+
   console.log("data after usequery", data);
 
   useEffect(() => {

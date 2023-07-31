@@ -7,6 +7,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { CssBaseline, Box } from "@mui/material";
 
 import Home from "./pages/Home";
 import Pet from "./pages/Pet";
@@ -45,24 +46,38 @@ export default function App() {
   }, []);
 
   return (
-    <ApolloProvider client={client}>
-      <Router>
-        <div>
+    <Box
+      component="main"
+      sx={{
+        backgroundColor: (theme) =>
+          theme.palette.mode === "light"
+            ? theme.palette.grey[100]
+            : theme.palette.grey[900],
+        flexGrow: 1,
+        height: "100vh",
+        overflow: "auto",
+      }}
+    >
+      <CssBaseline />
+      <ApolloProvider client={client}>
+        <Router>
           <div>
-            <Header />
+            <div>
+              <Header />
+            </div>
+            <main>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/me" element={<MyPack />} />
+                <Route path="/pets/:petId" element={<Pet />} />
+              </Routes>
+            </main>
+            <div>
+              <Footer />;
+            </div>
           </div>
-          <main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/me" element={<MyPack />} />
-              <Route path="/pets/:petId" element={<Pet />} />
-            </Routes>
-          </main>
-          <div>
-            <Footer />;
-          </div>
-        </div>
-      </Router>
-    </ApolloProvider>
+        </Router>
+      </ApolloProvider>
+    </Box>
   );
 }

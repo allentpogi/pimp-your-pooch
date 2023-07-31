@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import { useMutation } from "@apollo/client";
-import { ADD_USER } from "../utils/mutations";
+import { ADD_USER } from "../../utils/mutations";
 
-import Auth from "../utils/auth";
+import Auth from "../../utils/auth";
 import PersonAddRoundedIcon from "@mui/icons-material/PersonAddRounded";
 import Avatar from "@mui/material/Avatar";
 
@@ -144,9 +144,8 @@ const Signup = ({ isOpen, onClose }) => {
                 </Box>
               </FormControl>
             </Box>
-
-            {error && <div>{error.message}</div>}
           </Box>
+          {error && <Typography>{error.message}</Typography>}
         </Paper>
       </Drawer>
     </>

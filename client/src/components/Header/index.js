@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { Pets } from "@mui/icons-material";
 import { makeStyles } from "tss-react/mui";
-import Login from "../../pages/Login";
+import Login from "../Login";
 
 const useStyles = makeStyles()(() => ({
   navTitle: {

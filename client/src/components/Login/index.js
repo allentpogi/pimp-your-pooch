@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from "../utils/mutations";
+import { LOGIN_USER } from "../../utils/mutations";
 
-import Auth from "../utils/auth";
+import Auth from "../../utils/auth";
 import LockRoundedIcon from "@mui/icons-material/LockRounded";
 import Avatar from "@mui/material/Avatar";
 
@@ -16,13 +16,6 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import { makeStyles } from "tss-react/mui";
-
-const useStyles = makeStyles((theme) => ({
-  drawerContent: {
-    padding: theme.spacing(2),
-  },
-}));
 
 const Login = ({ isOpen, onClose }) => {
   const [formState, setFormState] = useState({ username: "", password: "" });
@@ -50,7 +43,6 @@ const Login = ({ isOpen, onClose }) => {
     }
   };
 
-  const classes = useStyles();
   return (
     <>
       <CssBaseline />
@@ -74,39 +66,62 @@ const Login = ({ isOpen, onClose }) => {
               </Avatar>
               <Typography variant="h5">Login</Typography>
             </Box>
-
-            <Box className={classes.drawerContent}>
-              <FormControl>
+            <Box
+              sx={{
+                marginTop: "1.5rem",
+              }}
+            >
+              <FormControl
+                sx={{
+                  "& .MuiTextField-root": { m: 1, width: "25ch" },
+                }}
+              >
                 <TextField
+                  required
                   label="Username"
                   name="username"
                   value={formState.username}
                   onChange={handleChange}
-                  fullWidth
                 />
                 <TextField
+                  required
                   label="Password"
                   type="password"
                   name="password"
                   value={formState.password}
                   onChange={handleChange}
-                  fullWidth
                 />
-
-                <Button variant="contained" color="secondary" onClick={onClose}>
-                  Cancel
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleFormSubmit}
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: "0.25rem",
+                    m: 1,
+                    justifyContent: "right",
+                  }}
                 >
-                  Submit
-                </Button>
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    size="small"
+                    align="center"
+                    onClick={onClose}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    align="center"
+                    onClick={handleFormSubmit}
+                  >
+                    Submit
+                  </Button>
+                </Box>
               </FormControl>
-              {error && <div>{error.message}</div>}
             </Box>
           </Box>
+          {error && <Typography>{error.message}</Typography>}
         </Paper>
       </Drawer>
     </>

@@ -1,26 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { Box, Container, CssBaseline, Typography } from "@mui/material";
-import { makeStyles } from "tss-react/mui";
 import Diversity1RoundedIcon from "@mui/icons-material/Diversity1Rounded";
 import Avatar from "@mui/material/Avatar";
 
-// import PetForm from "../components/PetForm";
 import PetList from "../components/PetList";
 
 import { QUERY_ME } from "../utils/queries";
 
-import Auth from "../utils/auth";
-
 const MyPack = () => {
-  // const { username: userParam } = useParams();
-  // console.log("userParam", userParam);
-
   const { loading, data } = useQuery(QUERY_ME, {});
 
   const user = data?.me || {};
-  console.log("user", user);
-  console.log("data", data);
 
   const [petList, setPetList] = useState([]);
   console.log("mypack", petList);
@@ -32,10 +23,6 @@ const MyPack = () => {
   }, [user.pets]);
 
   console.log({ user });
-  // navigate to personal profile page if username is yours
-  // if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
-  //   return <Navigate to="/me" />;
-  // }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -43,16 +30,16 @@ const MyPack = () => {
 
   if (!user?.username) {
     return (
-      <h4>
-        You need to be logged in to see this. Use the navigation links above to
-        sign up or log in!
-      </h4>
+      <Box sx={{ display: "flex", justifyContent: "center", margin: 2 }}>
+        <Typography variant="h5">
+          You need to be logged in to see this. Use the navigation link above to
+          log in!
+        </Typography>
+      </Box>
     );
   }
 
-  // Callback function to handle pet removal
   const handlePetRemoval = (petId) => {
-    // Filter out the removed pet from the list
     const updatedPets = petList.filter((pet) => pet._id !== petId);
     setPetList(updatedPets);
   };

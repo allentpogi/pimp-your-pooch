@@ -15,7 +15,7 @@ import Image from "../assets/img/hero-image.png";
 import Image2 from "../assets/img/dog-grooming.jpg";
 import Image3 from "../assets/img/dog-boarding.jpg";
 import Image4 from "../assets/img/dog-day-care.jpg";
-import Signup from "./Signup";
+import Signup from "../components/SignUp";
 
 const useStyles = makeStyles()(() => ({
   container: {
@@ -28,23 +28,6 @@ const useStyles = makeStyles()(() => ({
     height: "100%",
     width: "100%",
     minHeight: "55vh",
-    // minWidth: "100vh",
-  },
-  cardGrid: {
-    padding: "20px 0",
-  },
-  card: {
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-  },
-  cardMedia: {
-    paddingTop: "56.25%",
-    // Height: "200px",
-    // width: "100%",
-  },
-  cardContent: {
-    flexGrow: 1,
   },
 }));
 
@@ -103,21 +86,19 @@ const Home = () => {
           </Box>
         </Container>
       </Box>
-      <Container className={classes.cardGrid} maxWidth="md">
-        <Grid container spacing={4}>
+      <Container sx={{ padding: "20px 0" }} maxWidth="md">
+        <Grid justifyContent="center" container spacing={4}>
           {cardData.map((card, index) => (
             <Grid item key={index} xs={12} sm={6} md={4}>
-              <Card className={classes.card}>
+              <Card>
                 <CardMedia
-                  className={classes.cardMedia}
+                  sx={{ paddingTop: "56.25%" }}
                   image={card.image}
                   title={card.title}
                   alt={card.alt}
                 />
-                <CardContent className={classes.cardContent}>
-                  <Typography variant="h5" gutterBottom>
-                    {card.title}
-                  </Typography>
+                <CardContent sx={{ display: "flex", justifyContent: "center" }}>
+                  <Typography variant="h5">{card.title}</Typography>
                 </CardContent>
               </Card>
             </Grid>
