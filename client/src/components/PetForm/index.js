@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import GroupAddRoundedIcon from "@mui/icons-material/GroupAddRounded";
 import Avatar from "@mui/material/Avatar";
-import { makeStyles } from "tss-react/mui";
 
 import { ADD_PET } from "../../utils/mutations";
 import { QUERY_PETS, QUERY_ME } from "../../utils/queries";

@@ -2,27 +2,16 @@ import React, { useState } from "react";
 
 import Auth from "../../utils/auth";
 
-// import { Link } from "react-router-dom";
 import {
   AppBar,
+  Box,
   Button,
   CssBaseline,
   Toolbar,
   Typography,
 } from "@mui/material";
 import { Pets } from "@mui/icons-material";
-import { makeStyles } from "tss-react/mui";
 import Login from "../Login";
-
-const useStyles = makeStyles()(() => ({
-  navTitle: {
-    display: "flex",
-    alignItems: "center",
-  },
-  icon: {
-    margin: "1rem",
-  },
-}));
 
 const Header = () => {
   const logout = (event) => {
@@ -40,26 +29,20 @@ const Header = () => {
     setIsLoginOpen(false);
   };
 
-  const { classes } = useStyles();
   return (
     <>
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar sx={{ justifyContent: "space-between" }}>
-          <div className={classes.navTitle}>
-            <Pets className={classes.icon} />
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Pets sx={{ margin: "1rem" }} />
             <Typography variant="h6">Pimp my pooch</Typography>
-          </div>
-          <div className={classes.navTitle}>
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             {Auth.loggedIn() ? (
               <>
-                <Button
-                  href="/me"
-                  // onClick={handleLoginButtonClick}
-                  sx={{ my: 1, mx: 1.5 }}
-                  color="inherit"
-                >
-                  My pack
+                <Button href="/me" sx={{ my: 1, mx: 1.5 }} color="inherit">
+                  My dogs
                 </Button>
                 <Button
                   href="/"
@@ -81,7 +64,7 @@ const Header = () => {
               </Button>
             )}
             <Login isOpen={isLoginOpen} onClose={handleLoginDrawerClose} />
-          </div>
+          </Box>
         </Toolbar>
       </AppBar>
     </>

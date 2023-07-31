@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { useParams } from "react-router-dom";
 import { ADD_APPOINTMENT } from "../../utils/mutations";
-import formatDate from "../../utils/formatdate";
 import EventAvailableRoundedIcon from "@mui/icons-material/EventAvailableRounded";
 import Avatar from "@mui/material/Avatar";
 import {
@@ -11,14 +9,12 @@ import {
   Container,
   CssBaseline,
   FormControl,
-  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
   TextField,
   Typography,
 } from "@mui/material";
-import { makeStyles } from "tss-react/mui";
 
 const bookingTypes = [
   { value: "1", label: "Pamper my pooch" },
@@ -27,10 +23,7 @@ const bookingTypes = [
 ];
 
 const BookingForm = ({ pet, addBooking }) => {
-  // const pet = singlePet.singlePet;
-  console.log("bookingformn,pet", pet);
   const petId = pet._id;
-  console.log("bookingformn,petid", petId);
   const [addAppointment, { error }] = useMutation(ADD_APPOINTMENT);
   const [formState, setFormState] = useState({
     bookingType: "",
@@ -53,14 +46,6 @@ const BookingForm = ({ pet, addBooking }) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
-    console.log({
-      variables: {
-        petId,
-        ...formState,
-      },
-    });
-
     try {
       const { data } = await addAppointment({
         variables: {

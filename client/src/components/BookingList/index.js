@@ -17,10 +17,7 @@ import {
 } from "@mui/material";
 
 const BookingList = ({ pet }) => {
-  //   const pet = singlePet.singlePet;
-  console.log("bookinglist", pet);
   const appointments = pet.appointments;
-  console.log("appointments", appointments);
 
   return (
     <>

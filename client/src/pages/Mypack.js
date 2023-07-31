@@ -14,15 +14,12 @@ const MyPack = () => {
   const user = data?.me || {};
 
   const [petList, setPetList] = useState([]);
-  console.log("mypack", petList);
 
   useEffect(() => {
     if (user?.pets) {
       setPetList(user.pets);
     }
   }, [user.pets]);
-
-  console.log({ user });
 
   if (loading) {
     return <div>Loading...</div>;

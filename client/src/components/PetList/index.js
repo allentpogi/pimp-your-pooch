@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
 import PetForm from "../PetForm";
@@ -21,7 +21,6 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  Paper,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -56,26 +55,15 @@ const PetCard = ({ pet, onPetRemoval }) => {
   const [removePet, { error }] = useMutation(REMOVE_PET, {
     update(cache, { data: { removePet } }) {
       try {
-        // Read the current list of pets from the cache
         const data = cache.readQuery({ query: QUERY_PETS }) ?? { pets: [{}] };
-
-        // if (!data || !data.pets) {
-        //   // If data or pets are null, there's nothing to update in the cache
-        //   return;
-        // }
-
         const { pets } = data;
-
-        // Filter out the removed pet from the list
         const updatedPets = pets.filter((pet) => pet.id !== removePet.id);
 
-        // Update the cache with the modified list of pets
         cache.writeQuery({
           query: QUERY_PETS,
           data: { pets: updatedPets },
         });
 
-        // Update me object's cache to remove the pet from the "pets" array
         const { me } = cache.readQuery({ query: QUERY_ME });
 
         cache.writeQuery({
@@ -166,17 +154,6 @@ const PetCard = ({ pet, onPetRemoval }) => {
 };
 
 const PetList = ({ pets, onPetRemoval }) => {
-  // const [petList, setPetList] = useState(pets);
-
-  // const handlePetRemoval = (petId) => {
-  //   // Filter out the removed pet from the list
-  //   const updatedPets = petList.filter((pet) => pet._id !== petId);
-  //   setPetList(updatedPets);
-  // };
-
-  console.log("child", pets);
-  console.log("onPetRemoval", onPetRemoval);
-
   return (
     <>
       <CssBaseline />

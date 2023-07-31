@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
-import { QUERY_SINGLE_PET } from "../../utils/queries";
 import formatDate from "../../utils/formatdate";
 import { getIconComponent } from "../../utils/geticoncomponent";
 import BadgeRoundedIcon from "@mui/icons-material/BadgeRounded";
@@ -20,19 +17,8 @@ import {
 } from "@mui/material";
 
 const PetInfo = ({ pet }) => {
-  // const { petId } = useParams();
   const [imageUrl, setImageUrl] = useState("");
-
-  // const { loading, data } = useQuery(QUERY_SINGLE_PET, {
-  //   variables: { petId: petId },
-  // });
-
-  // const pet = data?.pet || {};
-  console.log("bookinginfo", pet);
-  // const pet = singlePet.singlePet;
-  console.log("petinfo1", pet);
   const petBreed = pet.breed;
-  console.log("breed", petBreed);
   const formattedBirthday = formatDate(pet.birthday);
 
   const petInfo = [
@@ -64,21 +50,9 @@ const PetInfo = ({ pet }) => {
     setImageUrl(imageUrl);
   };
 
-  // useEffect(() => {
-  //   if (loading) {
-  //     return; // Do not proceed with the fetchImage() if data is still loading
-  //   }
-
-  //   fetchImage();
-  // }, [loading, petBreed]); // Adding loading and petBreed as dependencies
-
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-
   useEffect(() => {
     fetchImage();
-  }, [petBreed]); // Adding loading and petBreed as dependencies
+  }, [petBreed]); // Adding petBreed as dependencies
 
   return (
     <>
