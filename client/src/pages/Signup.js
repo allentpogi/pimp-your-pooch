@@ -1,26 +1,22 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
 
 import Auth from "../utils/auth";
+import PersonAddRoundedIcon from "@mui/icons-material/PersonAddRounded";
+import Avatar from "@mui/material/Avatar";
 
 import {
   Box,
+  CssBaseline,
   Drawer,
   FormControl,
   TextField,
   Button,
+  Paper,
   Typography,
 } from "@mui/material";
-import { makeStyles } from "tss-react/mui";
-
-const useStyles = makeStyles((theme) => ({
-  drawerContent: {
-    padding: theme.spacing(2),
-  },
-}));
 
 const Signup = ({ isOpen, onClose }) => {
   const [formState, setFormState] = useState({
@@ -31,8 +27,6 @@ const Signup = ({ isOpen, onClose }) => {
   });
 
   const [addUser, { error, data }] = useMutation(ADD_USER);
-
-  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -52,65 +46,110 @@ const Signup = ({ isOpen, onClose }) => {
         variables: { ...formState },
       });
 
-      Auth.login(data.login.token);
-      navigate("/me");
+      Auth.login(data.addUser.token);
       onClose();
     } catch (e) {
       console.error(e);
     }
   };
 
-  const classes = useStyles();
   return (
-    <Drawer anchor="right" open={isOpen} onClose={onClose}>
-      <Box className={classes.drawerContent}>
-        <Typography>Sign up</Typography>
-        <FormControl>
-          <form>
-            <TextField
-              label="Username"
-              name="username"
-              value={formState.username}
-              onChange={handleChange}
-              fullWidth
-            />
-            <TextField
-              label="Full name"
-              name="fullname"
-              value={formState.name}
-              onChange={handleChange}
-              fullWidth
-            />
-            <TextField
-              label="Email"
-              name="email"
-              value={formState.email}
-              onChange={handleChange}
-              fullWidth
-            />
-            <TextField
-              label="Password"
-              name="password"
-              type="password"
-              value={formState.password}
-              onChange={handleChange}
-              fullWidth
-            />
-          </form>
-          <Button variant="contained" color="secondary" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleFormSubmit}
+    <>
+      <CssBaseline />
+      <Drawer anchor="right" open={isOpen} onClose={onClose}>
+        <Paper elevation={3}>
+          <Box
+            sx={{
+              padding: "1rem",
+            }}
           >
-            Submit
-          </Button>
-        </FormControl>
-        {error && <div>{error.message}</div>}
-      </Box>
-    </Drawer>
+            <Box
+              sx={{
+                paddingTop: "1rem",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Avatar sx={{ m: 1, bgcolor: "success.main" }}>
+                <PersonAddRoundedIcon />
+              </Avatar>
+              <Typography variant="h5">Sign up</Typography>
+            </Box>
+            <Box
+              sx={{
+                marginTop: "1.5rem",
+              }}
+            >
+              <FormControl
+                sx={{
+                  "& .MuiTextField-root": { m: 1, width: "25ch" },
+                }}
+              >
+                <TextField
+                  required
+                  label="Username"
+                  name="username"
+                  value={formState.username}
+                  onChange={handleChange}
+                />
+                <TextField
+                  required
+                  label="Full name"
+                  name="fullname"
+                  value={formState.name}
+                  onChange={handleChange}
+                />
+                <TextField
+                  required
+                  label="Email"
+                  name="email"
+                  value={formState.email}
+                  onChange={handleChange}
+                />
+                <TextField
+                  required
+                  label="Password"
+                  name="password"
+                  type="password"
+                  value={formState.password}
+                  onChange={handleChange}
+                />
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: "0.25rem",
+                    m: 1,
+                    justifyContent: "right",
+                  }}
+                >
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    size="small"
+                    align="center"
+                    onClick={onClose}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleFormSubmit}
+                    size="small"
+                    align="center"
+                  >
+                    Submit
+                  </Button>
+                </Box>
+              </FormControl>
+            </Box>
+
+            {error && <div>{error.message}</div>}
+          </Box>
+        </Paper>
+      </Drawer>
+    </>
   );
 };
 
