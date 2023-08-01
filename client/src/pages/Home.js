@@ -21,11 +21,9 @@ const useStyles = makeStyles()(() => ({
   container: {
     backgroundImage: `url(${Image})`,
     backgroundColor: "#b3e5fc",
-    backgroundPosition: "center",
-    backgroundSize: "cover",
+    backgroundPosition: "center bottom",
     backgroundRepeat: "no-repeat",
     padding: "4rem 3rem",
-    height: "100%",
     width: "100%",
     minHeight: "55vh",
   },
