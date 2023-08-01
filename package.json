@@ -2,7 +2,7 @@
   "name": "pimp-your-dog",
   "version": "1.0.0",
   "engines": {
-    "node": "18.x"
+    "npm": "7.x"
   },
   "description": "",
   "main": "server/server.js",
@@ -12,7 +12,8 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "seed": "cd server && npm run seed",
     "build": "cd client && npm run build",
-    "postinstall" : "npm run seed"
+    "postinstall" : "npm run seed",
+    "heroku-postbuild": "cd client && npm install && npm run build",
   },
   "keywords": [],
   "author": "",
